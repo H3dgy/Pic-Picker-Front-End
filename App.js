@@ -1,15 +1,28 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { Image } from 'react-native';
+import {createBottomTabNavigator} from 'react-navigation';
 
-export default class App extends React.Component {
+export class Home extends Component {
   render() {
-    return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-      </View>
-    );
+    return (<View style={styles.container}>
+      <Text>Home</Text>
+    </View>);
   }
 }
+
+export class Settings extends Component {
+  render() {
+    return <View style={styles.container}>
+        <Text>Settings</Text>
+      </View>;
+  }
+}
+
+export default createBottomTabNavigator ({
+  Home: Home,
+  Settings: Settings
+})
 
 const styles = StyleSheet.create({
   container: {
