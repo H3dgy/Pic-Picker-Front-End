@@ -9,8 +9,8 @@ const standardColors = {
 }
 
 const selectedColors = {
-  color: "#c5bdcc",
-  backgroundColor:  "#9e95a5",
+  color: "#9d4fd1",
+  backgroundColor: "#733b99",
 }
 
 const buttonDimensions = {
@@ -28,15 +28,11 @@ class PartnerAgeSelector extends Component {
     super(props);
     this.state = {
         bucket1: false,
-        bucket2:  false,
+        bucket2: false,
         bucket3: false,
         bucket4: false,
     };
   }
-
-  ageSelection = (bucketID) => {
-    
-  };
 
   render() {
     return (
@@ -44,24 +40,40 @@ class PartnerAgeSelector extends Component {
         <AwesomeButton
           width={buttonDimensions.width}
           height={buttonDimensions.height}
+          backgroundColor={this.state.bucket1 ? selectedColors.color: standardColors.color}
+          backgroundDarker = {this.state.bucket1 ? selectedColors.backgroundColor: standardColors.backgroundColor}
+          onPress={() => this.setState({bucket1: !this.state.bucket1})}
         >
+        <Text>18 - 25</Text>
         </AwesomeButton>
 
         <AwesomeButton
           width={buttonDimensions.width}
           height={buttonDimensions.height}
+          backgroundColor={this.state.bucket2 ? selectedColors.color: standardColors.color}
+          backgroundDarker = {this.state.bucket2 ? selectedColors.backgroundColor: standardColors.backgroundColor}
+          onPress={() => this.setState({bucket2: !this.state.bucket2})}
         >
+        <Text>25 - 35</Text>
         </AwesomeButton>
 
         <AwesomeButton
           width={buttonDimensions.width}
           height={buttonDimensions.height}
+          backgroundColor={this.state.bucket3 ? selectedColors.color: standardColors.color}
+          backgroundDarker = {this.state.bucket3 ? selectedColors.backgroundColor: standardColors.backgroundColor}
+          onPress={() => this.setState({bucket3: !this.state.bucket3})}
         >
+        <Text>35 - 45</Text>
         </AwesomeButton>
         <AwesomeButton
           width={buttonDimensions.width}
           height={buttonDimensions.height}
+          backgroundColor={this.state.bucket4 ? selectedColors.color: standardColors.color}
+          backgroundDarker = {this.state.bucket4 ? selectedColors.backgroundColor: standardColors.backgroundColor}
+          onPress={() => this.setState({bucket4: !this.state.bucket4})}
         >
+        <Text>45+</Text>
         </AwesomeButton>
       </View>
     );

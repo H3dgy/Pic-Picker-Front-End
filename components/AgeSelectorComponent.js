@@ -36,9 +36,8 @@ class AgeSelector extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>age: {this.state.value}</Text>
-        {/* <View style={styles.slidercontainer}> */}
           <Slider
+            style = {styles.slidercontainer}
             value={this.state.value}
             onValueChange={value => this.setState({ value: value })}
             onSlidingComplete={value => this.ageSelection(value)}
@@ -47,7 +46,7 @@ class AgeSelector extends Component {
             step={1}
             thumbStyle={styles.thumb}
           />
-        {/* </View> */}
+           <Text>{this.state.value} years old</Text>
       </View>
     );
   }
@@ -64,13 +63,15 @@ const styles = StyleSheet.create({
     shadowRadius: 1
   },
   slidercontainer: {
-    marginLeft: 30,
-    marginTop: 10,
-    marginBottom: 10,
-    marginRight: 30
+    width: 300
+    // marginLeft: 30,
+    // marginTop: 10,
+    // marginBottom: 10,
+    // marginRight: 30
   },
   container: {
     flex: 1,
     flexDirection: 'column',
+    alignItems: 'center',
   },
 });

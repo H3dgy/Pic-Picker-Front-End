@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import AwesomeButton from "react-native-really-awesome-button";
 import {
   StyleSheet,
   Text,
@@ -6,6 +7,11 @@ import {
   Button,
   AsyncStorage
 } from 'react-native';
+
+const logOutColors = {
+  color: "#de1c24",
+  backgroundColor:  "#9B1319",
+}
 
 class LogOutScreen extends Component {
 
@@ -21,8 +27,13 @@ class LogOutScreen extends Component {
 
   render() {
     return (<View style={styles.container}>
-      <Text>log out screen</Text>
-      <Button title="Log Out" onPress={this.logOut} />
+    <AwesomeButton
+       onPress={this.logOut}
+      backgroundColor={logOutColors.color}
+      backgroundDarker={logOutColors.backgroundColor}
+    >
+        <Text>Log out</Text>
+        </AwesomeButton>
     </View>);
   }
 }

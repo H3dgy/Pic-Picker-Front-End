@@ -13,9 +13,13 @@ class AppSettingsScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
+        <Text>I am a:</Text>
         <SexSelector/>
+        <Text>And feel </Text>
         <AgeSelector/>
+        <Text>So give me that feedback from: </Text>
         <PartnerSexSelector/>
+        <Text>Who fit within within the following buckets</Text>
         <PartnerAgeSelector/>
       </View>
     );
@@ -26,7 +30,11 @@ export default AppSettingsScreen;
 
 const styles = StyleSheet.create({
   container: {
+    paddingTop: 20,
+    paddingBottom: 20,
     flex: 1,
-    backgroundColor: "#fff", 
+    backgroundColor: "#fff",
+    flexDirection: 'column',
+    alignItems: 'center'
   }
 });
