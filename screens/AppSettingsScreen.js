@@ -1,10 +1,6 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import SexSelector from "../components/SexSelectorComponent";
-import AgeSelector from "../components/AgeSelectorComponent";
-import PartnerSexSelector from "../components/PartnerSexSelectorComponent";
-import PartnerAgeSelector from "../components/PartnerAgeSelectorComponent";
-
+import SettingsComponent from "../components/SettingsComponent";
 
 class AppSettingsScreen extends Component {
   constructor() {
@@ -13,14 +9,7 @@ class AppSettingsScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>I am a:</Text>
-        <SexSelector/>
-        <Text>And feel </Text>
-        <AgeSelector/>
-        <Text>So give me that feedback from: </Text>
-        <PartnerSexSelector/>
-        <Text>Who fit within within the following buckets</Text>
-        <PartnerAgeSelector/>
+       <SettingsComponent></SettingsComponent>
       </View>
     );
   }

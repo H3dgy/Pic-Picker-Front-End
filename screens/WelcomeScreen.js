@@ -1,19 +1,36 @@
 import React, { Component } from "react";
+import AwesomeButton from "react-native-really-awesome-button";
 import { 
   StyleSheet, 
   Text, 
   View,
   Button } from "react-native";
 
+  const signInColors = {
+    color: "#9d4fd1",
+    backgroundColor: "#733b99",
+  }
+
+  const logInColors = {
+    color: "#9d4fd1",
+    backgroundColor: "#733b99",
+  }
 class WelcomeScreen extends Component {
   constructor() {
     super();
   }
   render() {
     return <View style={styles.container}>
-        <Text>Welcome screen</Text>
-        <Button title="Sign In" onPress={() => this.props.navigation.navigate("SignIn")} />
-        <Button title="Sign Up" onPress={() => this.props.navigation.navigate("SignUp")} />
+        <AwesomeButton style={styles.buttonContainer}
+          onPress={() => this.props.navigation.navigate("SignIn")}
+          backgroundColor={logInColors.color}
+          backgroundDarker={logInColors.backgroundColor}
+        >Sign in</AwesomeButton>
+        <AwesomeButton style={styles.buttonContainer}
+          onPress={() => this.props.navigation.navigate("SignUp")}
+          backgroundColor={signInColors.color}
+          backgroundDarker={signInColors.backgroundColor}
+        >Sign up</AwesomeButton>
       </View>;
   }
 }
@@ -26,5 +43,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center"
+  },
+  buttonContainer: {
+    marginTop: 5,
+    marginBottom: 5
   }
 });
