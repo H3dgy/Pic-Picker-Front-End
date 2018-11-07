@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View } from "react-native";
+import CreditHearthComponent from "../components/CreditHearthComponent";
 
 class AppHomeScreen extends Component {
   constructor() {
@@ -8,7 +9,7 @@ class AppHomeScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>AppHomeScreen</Text>
+        <Text>Home</Text>
       </View>
     );
   }
@@ -18,9 +19,7 @@ export default AppHomeScreen;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center"
+    flex: 1,
   }
 });

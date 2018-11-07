@@ -1,5 +1,11 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View } from "react-native";
+import AwesomeButton from "react-native-really-awesome-button";
+
+const standardColors = {
+  color: "#c5bdcc",
+  backgroundColor:  "#9e95a5",
+}
 
 class AppStatsScreen extends Component {
   constructor() {

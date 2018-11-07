@@ -13,11 +13,13 @@ import AppHomeScreen from "./screens/AppHomeScreen";
 import AppStatsScreen from "./screens/AppStatsScreen";
 import AppSettingsScreen from "./screens/AppSettingsScreen";
 import LogOutScreen from "./screens/LogOutScreen";
+import CreditHearthComponent from "./components/CreditHearthComponent"
 
 
 import {createSwitchNavigator ,createStackNavigator, createDrawerNavigator ,createBottomTabNavigator} from 'react-navigation';
 
 import Icon from "react-native-vector-icons/Ionicons";
+
 
 /**
  * switchNavigator - one SCREEN at one time
@@ -79,11 +81,9 @@ const AppStackNavigator = createStackNavigator({
         </TouchableOpacity>
       ),
       headerRight: (
-        <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
-          <View>
-            <Text>counter</Text>
+          <View style={{marginRight: 30}}>
+            <CreditHearthComponent></CreditHearthComponent>
           </View>
-        </TouchableOpacity>
       )
     })
   }
@@ -157,5 +157,6 @@ const styles = StyleSheet.create({
   },
   menuButton: {
     marginLeft: 40,
+    marginRight: 40
   }
 });
