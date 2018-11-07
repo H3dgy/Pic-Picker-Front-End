@@ -6,7 +6,7 @@ import {
   View,
   Button } from "react-native";
 
-  const signInColors = {
+  const signUpColors = {
     color: "#9d4fd1",
     backgroundColor: "#733b99",
   }
@@ -28,8 +28,8 @@ class WelcomeScreen extends Component {
         >Sign in</AwesomeButton>
         <AwesomeButton style={styles.buttonContainer}
           onPress={() => this.props.navigation.navigate("SignUp")}
-          backgroundColor={signInColors.color}
-          backgroundDarker={signInColors.backgroundColor}
+          backgroundColor={signUpColors.color}
+          backgroundDarker={signUpColors.backgroundColor}
         >Sign up</AwesomeButton>
       </View>;
   }
