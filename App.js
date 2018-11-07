@@ -3,10 +3,8 @@ import {
   StyleSheet, 
   Text, 
   View,
-  ActivityIndicator,
   TouchableOpacity 
   } from 'react-native';
-import { Image } from 'react-native';
 import AuthLoadingScreen from './screens/AuthLoadingScreen';
 import SignInScreen from "./screens/SignInScreen";
 import SignUpScreen from "./screens/SignUpScreen";
@@ -72,7 +70,7 @@ const AppStackNavigator = createStackNavigator({
   AppBottomTabNavigator: {
     screen: AppBottomTabNavigator,
     navigationOptions: ({navigation}) => ({
-      title: "DickPicker",
+      title: "App",
       headerLeft: (
         <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
           <View>
@@ -95,7 +93,7 @@ const SettingsStackNavigator = createStackNavigator ({
   SettingsNavigator: {
     screen: AppSettingsScreen,
     navigationOptions: ({navigation}) => ({
-      title: "DickPicker",
+      title: "App",
       headerLeft: (
         <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
           <View>
@@ -118,7 +116,7 @@ const LogOutStackNavigator = createStackNavigator({
   SettingsNavigator: {
     screen: LogOutScreen,
     navigationOptions: ({ navigation }) => ({
-      title: "DickPicker",
+      title: "App",
       headerLeft: (
         <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
           <View>
