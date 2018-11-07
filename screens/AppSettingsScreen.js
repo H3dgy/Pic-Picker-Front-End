@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import SexSelector from "../components/SexSelectorComponent";
+import AgeSelector from "../components/AgeSelectorComponent";
+import PartnerSexSelector from "../components/PartnerSexSelectorComponent";
+import PartnerAgeSelector from "../components/PartnerAgeSelectorComponent";
+
 
 class AppSettingsScreen extends Component {
   constructor() {
@@ -10,6 +14,9 @@ class AppSettingsScreen extends Component {
     return (
       <View style={styles.container}>
         <SexSelector/>
+        <AgeSelector/>
+        <PartnerSexSelector/>
+        <PartnerAgeSelector/>
       </View>
     );
   }
