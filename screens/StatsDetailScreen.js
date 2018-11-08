@@ -13,17 +13,8 @@ class StatsDetailScreen extends Component {
     super();
   }
 
-  signUp = async () => {
-    await AsyncStorage.setItem("userToken", "Frederik");
-    this.props.navigation.navigate("App");
-  };
-
   render() {
-    return (
-      <Text>
-        Stats Detail
-      </Text>
-    );
+    return <Text>Stats Detail</Text>;
   }
 }
 

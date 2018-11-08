@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View } from "react-native";
+import StatPictureComponent from "../components/StatPictureComponent";
+import AddPictureButton from "../components/AddPictureButton";
 
 class AppHomeScreen extends Component {
   constructor() {
@@ -8,7 +10,7 @@ class AppHomeScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Home</Text>
+          <AddPictureButton />
       </View>
     );
   }
@@ -22,3 +24,6 @@ const styles = StyleSheet.create({
     flex: 1,
   }
 });
+
+
+
