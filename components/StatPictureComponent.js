@@ -16,7 +16,6 @@ class StatPictureComponent extends Component {
       score: 10,
       people: 20
     };
-    console.log(this.props.navigation)
   }
 
   showDetails = () => {

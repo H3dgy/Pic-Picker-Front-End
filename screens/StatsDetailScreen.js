@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import AwesomeButton from "react-native-really-awesome-button";
-import SettingsComponent from "../components/SettingsComponent";
-import { StyleSheet, Text, AsyncStorage } from "react-native";
+import { StyleSheet, View, Text,  ScrollView, Dimensions } from "react-native";
+import LineChartComponent from "../components/charts/LineChartComponent";
+import PieChartComponent from "../components/charts/PieChartComponent";
+import ColumnChartComponent from "../components/charts/ColumnChartComponent";
+import StatDetailPictureComponent from "../components/StatDetailPictureComponent";
 
-const signUpColors = {
-  color: "#9d4fd1",
-  backgroundColor: "#733b99"
-};
+const SCREEN_HEIGHT = Dimensions.get("window").height;
+
 
 class StatsDetailScreen extends Component {
   constructor() {
@@ -14,7 +15,30 @@ class StatsDetailScreen extends Component {
   }
 
   render() {
-    return <Text>Stats Detail</Text>;
+    return (
+    <View style={{flex:1, justifyContent: 'space-between', backgroundColor: "#fff"}}>
+    <View style={{height: 250, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginLeft: 20, marginRight: 20}}>
+          <StatDetailPictureComponent></StatDetailPictureComponent>
+          <AwesomeButton 
+          style={{marginLeft: 50}}
+          width={80}
+          height={80}
+          borderRadius={40}>
+            <Text>
+              More!
+            </Text>
+          </AwesomeButton>
+    </View>
+    <View style={{height: null, flexGrow:1, justifyContent: 'space-between', marginLeft: 20, marginRight: 20}}>
+          <Text>SuccesRatio</Text>
+          <PieChartComponent></PieChartComponent>
+          <Text>Regional breakdown</Text>
+          <ColumnChartComponent></ColumnChartComponent>
+          <Text>Age breakdown</Text>
+          <ColumnChartComponent></ColumnChartComponent>
+    </View>
+    </View>
+    )
   }
 }
 
@@ -24,7 +48,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    flexDirection: "column",
-    alignItems: "center"
+    alignItems: "center",
+    justifyContent: "flex-start"
+  },
+  viewContainer: {
+    flex: 1,
+    height: null,
+    width: null,
+    marginLeft: 20,
+    marginRight: 20,
+    alignItems: 'center'
   }
 });
