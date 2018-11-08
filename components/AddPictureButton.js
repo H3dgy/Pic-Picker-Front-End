@@ -17,7 +17,6 @@ class AddPictureButton extends Component {
     super(props)
     this.state = {
       hasCameraPermission: null,
-      image: null,
     }
   }
 
@@ -32,7 +31,14 @@ class AddPictureButton extends Component {
       base64: true
     })
     if(!result.cancelled) {
-      this.setState({image: result.uri})
+      const imageList = [...this.props.imageList];
+      const image = { 
+        id: imageList.length + 1, 
+        uri:  result.uri, 
+        people: 10, 
+        score: 8 };
+      imageList.push(image);
+      this.props.changeImageList(imageList)
     }
   };
 
@@ -57,7 +63,6 @@ class AddPictureButton extends Component {
           >
             <Icon name="ios-add" size={34} color={"white"} />
           </AwesomeButton>
-          {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
         </View>
       );
     }
