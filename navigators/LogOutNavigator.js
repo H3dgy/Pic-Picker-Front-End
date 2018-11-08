@@ -10,6 +10,4 @@ const LogOutStackNavigator = createStackNavigator({
   }
 });
 
-
-
 export default LogOutStackNavigator;
