@@ -6,6 +6,8 @@ import {
   ActivityIndicator,
   AsyncStorage
 } from 'react-native';
+import { changeSettings } from '../redux/actions/actions';
+import { connect } from 'react-redux';
 
 class AuthLoadingScreen extends Component {
 
@@ -15,8 +17,14 @@ class AuthLoadingScreen extends Component {
   }
 
   loadApp = async () => {
-    const userToken = await AsyncStorage.getItem('userToken')
-    this.props.navigation.navigate(userToken? 'App' : 'Auth')
+    const userToken = await AsyncStorage.getItem('userToken');
+    let userSettings = await AsyncStorage.getItem('userSettings');
+    console.log(userSettings);
+    if (userSettings) {
+      userSettings = JSON.parse(userSettings);
+      this.props.changeSettings(userSettings)
+    }
+    this.props.navigation.navigate(userToken? 'App' : 'Auth');
   }
   render() {
     return (<View style={styles.container}>
@@ -26,7 +34,15 @@ class AuthLoadingScreen extends Component {
   }
 }
 
-export default AuthLoadingScreen;
+// Not used but expected by connect
+const mapStateToProps = () => ({
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  changeSettings: (settings) => dispatch(changeSettings(settings))
+});
+
+export default connect(mapStateToProps,mapDispatchToProps) (AuthLoadingScreen);
 
 const styles = StyleSheet.create({
   container: {

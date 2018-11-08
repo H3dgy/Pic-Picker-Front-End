@@ -1,10 +1,19 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import mainAppNavigator from "./navigators/MainNavigation";
+import MainAppNavigator from "./navigators/MainNavigation";
+import {Provider} from 'react-redux';
+import {createStore} from 'redux';
+import reducers from './redux/reducers/reducers';
 
-export default mainAppNavigator
+const store = createStore(reducers);
 
-const styles = StyleSheet.create({
-  container: {
+export default class App extends React.Component {
+  render() {
+    return (
+      <Provider store={ store}>
+      <MainAppNavigator></MainAppNavigator>
+      </Provider>
+    )
   }
-});
+}
+

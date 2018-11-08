@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import AwesomeButton from "react-native-really-awesome-button";
 import { Image } from "react-native";
+import { changeSettings } from '../redux/actions/actions';
+import { connect } from 'react-redux';
 
 class PartnerSexSelector extends Component {
   constructor(props) {
@@ -13,15 +15,15 @@ class PartnerSexSelector extends Component {
   }
 
   maleSelection = () => {
-      this.setState({
-        male: !this.state.male
-      })
+    const userSettings = {...this.props.settings};
+    userSettings.feedbackGender.male = !userSettings.feedbackGender.male;
+    this.props.changeSettings(userSettings);
   };
 
   femaleSelection = () => {
-      this.setState({
-        female: !this.state.female
-      })
+    const userSettings = {...this.props.settings};
+    userSettings.feedbackGender.female = !userSettings.feedbackGender.female;
+    this.props.changeSettings(userSettings);
   };
   render() {
     return (
@@ -31,8 +33,8 @@ class PartnerSexSelector extends Component {
           height={80}
           borderRadius={40}
           onPress={this.femaleSelection}
-          backgroundColor={this.state.female ? femaleColors.color : standardColors.color}
-          backgroundDarker = {this.state.female ? femaleColors.backgroundColor : standardColors.backgroundColor}
+          backgroundColor={this.props.settings.feedbackGender.female ? femaleColors.color : standardColors.color}
+          backgroundDarker = {this.props.settings.feedbackGender.female ? femaleColors.backgroundColor : standardColors.backgroundColor}
         >
           <Image
             source={require("../assets/female.png")}
@@ -44,8 +46,8 @@ class PartnerSexSelector extends Component {
           height={80}
           borderRadius={40}
           onPress={this.maleSelection}
-          backgroundColor={this.state.male ? maleColors.color: standardColors.color}
-          backgroundDarker = {this.state.male ? maleColors.backgroundColor: standardColors.backgroundColor}
+          backgroundColor={this.props.settings.feedbackGender.male ? maleColors.color: standardColors.color}
+          backgroundDarker = {this.props.settings.feedbackGender.male ? maleColors.backgroundColor: standardColors.backgroundColor}
         >
           <Image
             source={require("../assets/male.png")}
@@ -57,7 +59,17 @@ class PartnerSexSelector extends Component {
     );
   }
 }
-export default PartnerSexSelector;
+
+const mapStateToProps = (state) => ({
+  settings: state.user.settings 
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  changeSettings: (settings) => dispatch(changeSettings(settings))
+});
+
+export default connect(mapStateToProps,mapDispatchToProps) (PartnerSexSelector);
+
 
 const styles = StyleSheet.create({
   container: {

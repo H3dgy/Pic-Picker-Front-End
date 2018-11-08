@@ -6,6 +6,8 @@ import AddPictureButton from "../components/AddPictureButton";
 class AppStatsScreen extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+    }
   }
 
   addPicture = () => {};
@@ -13,7 +15,7 @@ class AppStatsScreen extends Component {
     return (
       <ScrollView centerContent={true} style={{ backgroundColor: "white" }}>
         <View style={styles.container}>
-          <AddPictureButton />
+          <AddPictureButton/>
           <StatPictureComponent navigation={this.props.navigation} />
           {/* <StatPictureComponent></StatPictureComponent>
         <StatPictureComponent></StatPictureComponent>

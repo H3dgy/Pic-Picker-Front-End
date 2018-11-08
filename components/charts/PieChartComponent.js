@@ -28,8 +28,6 @@ class PieChartComponent extends React.PureComponent {
                 data={data}
             >
             </PieChart>
-            
-           
         )
     }
 

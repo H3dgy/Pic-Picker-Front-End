@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import AwesomeButton from "react-native-really-awesome-button";
 import { Image } from "react-native";
+import { connect } from 'react-redux';
+import { changeSettings } from '../redux/actions/actions';
+
 
 const standardColors = {
   color: "#c5bdcc",
@@ -26,20 +29,16 @@ const bothColors = {
 class SexSelector extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-        selected: "none"
-    };
   }
 
   sexSelection = (buttonID) => {
-    if (buttonID !== this.state.selected) {
-      this.setState({
-        selected: buttonID
-      })
+    const userSettings = {...this.props.settings};
+    if (buttonID !== userSettings.gender) {
+      userSettings.gender = buttonID;
+      this.props.changeSettings(userSettings);
     } else {
-      this.setState({
-        selected: "none"
-      })
+      userSettings.gender = "none";
+      this.props.changeSettings(userSettings);
     }
   };
 
@@ -51,8 +50,8 @@ class SexSelector extends Component {
           height={80}
           borderRadius={40}
           onPress={this.sexSelection.bind(null,"female")}
-          backgroundColor={("female" === this.state.selected) ? femaleColors.color : standardColors.color}
-          backgroundDarker = {("female" === this.state.selected) ? femaleColors.backgroundColor : standardColors.backgroundColor}
+          backgroundColor={("female" === this.props.settings.gender) ? femaleColors.color : standardColors.color}
+          backgroundDarker = {("female" === this.props.settings.gender) ? femaleColors.backgroundColor : standardColors.backgroundColor}
         >
           <Image
             source={require("../assets/female.png")}
@@ -65,8 +64,8 @@ class SexSelector extends Component {
           height={80}
           borderRadius={40}
           onPress={this.sexSelection.bind(null,"both")}
-          backgroundColor={("both" === this.state.selected) ? bothColors.color: standardColors.color}
-          backgroundDarker = {("both" === this.state.selected) ? bothColors.backgroundColor: standardColors.backgroundColor}
+          backgroundColor={("both" === this.props.settings.gender) ? bothColors.color: standardColors.color}
+          backgroundDarker = {("both" === this.props.settings.gender) ? bothColors.backgroundColor: standardColors.backgroundColor}
         >
           <Image
             source={require("../assets/both.png")}
@@ -79,8 +78,8 @@ class SexSelector extends Component {
           height={80}
           borderRadius={40}
           onPress={this.sexSelection.bind(null,"male")}
-          backgroundColor={("male" === this.state.selected) ? maleColors.color: standardColors.color}
-          backgroundDarker = {("male" === this.state.selected) ? maleColors.backgroundColor: standardColors.backgroundColor}
+          backgroundColor={("male" === this.props.settings.gender) ? maleColors.color: standardColors.color}
+          backgroundDarker = {("male" === this.props.settings.gender) ? maleColors.backgroundColor: standardColors.backgroundColor}
         >
           <Image
             source={require("../assets/male.png")}
@@ -92,7 +91,17 @@ class SexSelector extends Component {
     );
   }
 }
-export default SexSelector;
+
+const mapStateToProps = (state) => ({
+  settings: state.user.settings 
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  changeSettings: (settings) => dispatch(changeSettings(settings))
+});
+
+export default connect(mapStateToProps,mapDispatchToProps) (SexSelector);
+
 
 const styles = StyleSheet.create({
   container: {

@@ -29,10 +29,10 @@ const AppDrawerNavigator = createDrawerNavigator({
   LogOut: LogOutStackNavigator
 });
 
-const mainAppNavigator = createSwitchNavigator({
+const MainAppNavigator = createSwitchNavigator({
   AuthLoading: AuthLoadingScreen,
   Auth: AuthStackNavigator,
   App: AppDrawerNavigator
 });
 
-export default mainAppNavigator
+export default MainAppNavigator

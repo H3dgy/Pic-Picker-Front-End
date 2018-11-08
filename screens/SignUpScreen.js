@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import AwesomeButton from "react-native-really-awesome-button";
 import SettingsComponent from "../components/SettingsComponent";
 import { StyleSheet, Text, View, Button, AsyncStorage } from "react-native";
+import { connect } from 'react-redux';
 
 const signUpColors = {
   color: "#9d4fd1",
@@ -15,6 +16,7 @@ class SignUpScreen extends Component {
 
   signUp = async () => {
     await AsyncStorage.setItem("userToken", "Frederik");
+    await AsyncStorage.setItem("userSettings", JSON.stringify(this.props.settings));
     this.props.navigation.navigate("App");
   };
 
@@ -35,7 +37,15 @@ class SignUpScreen extends Component {
   }
 }
 
-export default SignUpScreen;
+const mapStateToProps = (state) => ({
+  settings: state.user.settings
+});
+
+const mapDispatchToProps = (dispatch) => ({
+ 
+});
+
+export default connect(mapStateToProps, mapDispatchToProps) (SignUpScreen);
 
 const styles = StyleSheet.create({
   container: {
