@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 
 const heartColors = {
@@ -8,20 +8,28 @@ const heartColors = {
 }
 
 class CreditHearthComponent extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       activated: false
     }
+    console.log(props.navigator)
   }
+
+  handlePress = () => {
+    this.props.navigator.navigate("HearthScreen");
+  }
+
   render() {
     return (
       <View style={styles.container}>
+      <TouchableOpacity  onPress={this.handlePress}>
       <Ionicons style={styles.icon} raised = {true} name="ios-heart" size={32}  color={this.state.activated ? heartColors.activated : heartColors.deactivated } />
       <View style={this.state.activated ? styles.hiddenCircle : styles.circle}>
       <Text style={styles.text}>10</Text>
       </View>
-      </View>
+      </TouchableOpacity> 
+      </View>  
     );
   }
 }

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View, Image } from "react-native";
+import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import AwesomeButton from "react-native-really-awesome-button";
 
 const standardColors = {
@@ -10,17 +10,24 @@ const standardColors = {
 
 
 class StatPictureComponent extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       score: 10,
       people: 20
     };
+    console.log(this.props.navigation)
   }
+
+  showDetails = () => {
+    this.props.navigation.navigate("StatsDetailScreen")
+  }
+
   render() {
     return (
         <View style={styles.container}>
           <Image style={styles.image} source={require("../assets/test.jpg")} />
+          <TouchableOpacity  onPress={this.showDetails}>
           <View style={[styles.imageContainer,styles.topButton]}>
           <Image
             source={require("../assets/favorite.png")}
@@ -28,7 +35,9 @@ class StatPictureComponent extends Component {
           />
           <Text style={styles.paragraph}>{this.state.people}</Text>
         </View>
+          </TouchableOpacity>
         <AwesomeButton
+        onPress = {this.showDetails}
         width={50}
         height={50}
         borderRadius={25}

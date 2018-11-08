@@ -3,6 +3,10 @@ import { StyleSheet, Text, View, ScrollView} from "react-native";
 import AwesomeButton from "react-native-really-awesome-button";
 import Icon from "react-native-vector-icons/Ionicons";
 import StatPictureComponent from "../components/StatPictureComponent";
+import {
+  createStackNavigator,
+} from "react-navigation";
+import StatsDetailScreen from "../screens/StatsDetailScreen";
 
 const standardColors = {
   color: "#c5bdcc",
@@ -10,8 +14,8 @@ const standardColors = {
 }
 
 class AppStatsScreen extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
   }
 
   addPicture = () => {
@@ -32,17 +36,44 @@ class AppStatsScreen extends Component {
         >
         <Icon name="ios-add" size={34} color={'white'}/>
         </AwesomeButton>
+        <StatPictureComponent navigation={this.props.navigation}></StatPictureComponent>
+        {/* <StatPictureComponent></StatPictureComponent>
         <StatPictureComponent></StatPictureComponent>
-        <StatPictureComponent></StatPictureComponent>
-        <StatPictureComponent></StatPictureComponent>
-        <StatPictureComponent></StatPictureComponent>
+        <StatPictureComponent></StatPictureComponent> */}
         </View>
       </ScrollView>
     );
   }
 }
 
-export default AppStatsScreen;
+// class StatsDetailScreen extends Component {
+//   constructor(props) {
+//     super(props);
+//   }
+
+//   render() {
+//     return (
+//       <View >
+//           <Text>StatsPictureScreen</Text>
+//       </View>
+//     );
+//   }
+// }
+
+const StackDetailNavigator = createStackNavigator({
+  AppStatsScreen: AppStatsScreen,
+  StatsDetailScreen: StatsDetailScreen,
+}, {
+  navigationOptions: {
+  header: null,
+  }
+});
+
+// Add stack navigator to this screen and should have props in the components 
+
+export default StackDetailNavigator;
+
+
 
 const styles = StyleSheet.create({
   container: {

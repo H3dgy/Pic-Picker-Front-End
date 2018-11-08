@@ -1,25 +1,24 @@
-import React, {Component} from 'react';
-import { 
-  StyleSheet, 
-  Text, 
-  View,
-  TouchableOpacity 
-  } from 'react-native';
-import AuthLoadingScreen from './screens/AuthLoadingScreen';
+import React, { Component } from "react";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import AuthLoadingScreen from "./screens/AuthLoadingScreen";
 import SignInScreen from "./screens/SignInScreen";
 import SignUpScreen from "./screens/SignUpScreen";
 import WelcomeScreen from "./screens/WelcomeScreen";
 import AppHomeScreen from "./screens/AppHomeScreen";
-import AppStatsScreen from "./screens/AppStatsScreen";
+import StackDetailNavigator from "./navigators/StackDetailNavigator";
 import AppSettingsScreen from "./screens/AppSettingsScreen";
 import LogOutScreen from "./screens/LogOutScreen";
-import CreditHearthComponent from "./components/CreditHearthComponent"
+import CreditHearthComponent from "./components/CreditHearthComponent";
+import CreditHearthScreen from "./screens/CreditHearthScreen"
 
-
-import {createSwitchNavigator ,createStackNavigator, createDrawerNavigator ,createBottomTabNavigator} from 'react-navigation';
+import {
+  createSwitchNavigator,
+  createStackNavigator,
+  createDrawerNavigator,
+  createBottomTabNavigator
+} from "react-navigation";
 
 import Icon from "react-native-vector-icons/Ionicons";
-
 
 /**
  * switchNavigator - one SCREEN at one time
@@ -34,7 +33,7 @@ const AuthStackNavigator = createStackNavigator({
   Welcome: WelcomeScreen,
   SignUp: SignUpScreen,
   SignIn: SignInScreen
-}); 
+});
 
 const AppBottomTabNavigator = createBottomTabNavigator(
   {
@@ -47,7 +46,7 @@ const AppBottomTabNavigator = createBottomTabNavigator(
       }
     },
     Stats: {
-      screen: AppStatsScreen,
+      screen: StackDetailNavigator,
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
           <Icon name="ios-stats" color={tintColor} size={24} />
@@ -68,31 +67,36 @@ const AppBottomTabNavigator = createBottomTabNavigator(
   }
 );
 
+
+
 const AppStackNavigator = createStackNavigator({
   AppBottomTabNavigator: {
     screen: AppBottomTabNavigator,
-    navigationOptions: ({navigation}) => ({
+    navigationOptions: ({ navigation }) => ({
       title: "App",
       headerLeft: (
         <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
           <View>
-            <Icon name="md-menu" size={24} style={styles.menuButton}/>
+            <Icon name="md-menu" size={24} style={styles.menuButton} />
           </View>
         </TouchableOpacity>
       ),
       headerRight: (
-          <View style={{marginRight: 30}}>
-            <CreditHearthComponent></CreditHearthComponent>
+          <View style={{ marginRight: 30 }}>
+          <CreditHearthComponent navigator={navigation}/>
           </View>
       )
     })
+  },
+  HearthScreen: {
+    screen: CreditHearthScreen
   }
 });
 
-const SettingsStackNavigator = createStackNavigator ({
+const SettingsStackNavigator = createStackNavigator({
   SettingsNavigator: {
     screen: AppSettingsScreen,
-    navigationOptions: ({navigation}) => ({
+    navigationOptions: ({ navigation }) => ({
       title: "App",
       headerLeft: (
         <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
@@ -110,7 +114,7 @@ const SettingsStackNavigator = createStackNavigator ({
       )
     })
   }
-})
+});
 
 const LogOutStackNavigator = createStackNavigator({
   SettingsNavigator: {
@@ -133,12 +137,12 @@ const LogOutStackNavigator = createStackNavigator({
       )
     })
   }
-})
+});
 
 const AppDrawerNavigator = createDrawerNavigator({
   Home: AppStackNavigator,
   Settings: SettingsStackNavigator,
-  LogOut: LogOutStackNavigator,
+  LogOut: LogOutStackNavigator
 });
 
 export default createSwitchNavigator({
@@ -147,13 +151,12 @@ export default createSwitchNavigator({
   App: AppDrawerNavigator
 });
 
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center"
   },
   menuButton: {
     marginLeft: 40,
