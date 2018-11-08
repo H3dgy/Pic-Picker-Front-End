@@ -32,7 +32,7 @@ class StatPictureComponent extends Component {
             source={require("../assets/favorite.png")}
             style={styles.star}
           />
-          <Text style={styles.paragraph}>{this.state.people}</Text>
+          <Text style={styles.paragraph}>{this.state.score}</Text>
         </View>
           </TouchableOpacity>
         <AwesomeButton
@@ -43,7 +43,7 @@ class StatPictureComponent extends Component {
         backgroundColor={standardColors.color}
         style={styles.bottomButton}
         >
-          <Text>{this.state.score}</Text>
+          <Text>{this.state.people}</Text>
         </AwesomeButton>
       </View>
     );

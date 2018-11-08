@@ -17,17 +17,8 @@ class StatsDetailScreen extends Component {
   render() {
     return (
     <View style={{flex:1, justifyContent: 'space-between', backgroundColor: "#fff"}}>
-    <View style={{height: 250, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginLeft: 20, marginRight: 20}}>
+    <View style={{height: 200, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginLeft: 20, marginRight: 20, marginBottom: 20}}>
           <StatDetailPictureComponent></StatDetailPictureComponent>
-          <AwesomeButton 
-          style={{marginLeft: 50}}
-          width={80}
-          height={80}
-          borderRadius={40}>
-            <Text>
-              More!
-            </Text>
-          </AwesomeButton>
     </View>
     <View style={{height: null, flexGrow:1, justifyContent: 'space-between', marginLeft: 20, marginRight: 20}}>
           <Text>SuccesRatio</Text>
