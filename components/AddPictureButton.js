@@ -3,6 +3,9 @@ import {StyleSheet, Image, View} from "react-native";
 import { ImagePicker, Permissions } from 'expo';
 import AwesomeButton from "react-native-really-awesome-button";
 import Icon from "react-native-vector-icons/Ionicons";
+import { connect } from 'react-redux';
+import { changeCredits } from '../redux/actions/actions';
+import { changeImageList } from '../redux/actions/actions';
 
 const standardColors = {
   color: "#c5bdcc",
@@ -68,5 +71,15 @@ const styles = StyleSheet.create({
     alignItems: "center"
   }
 });
+const mapStateToProps = (state) => ({
+  credits: state.user.credits,
+  imageList: state.images.imageList
+});
 
-export default AddPictureButton;
+const mapDispatchToProps = (dispatch) => ({
+  changeCredits: (credits) => dispatch(changeCredits(credits)),
+  changeImageList: (imageList) => dispatch(changeImageList(imageList))
+});
+
+export default connect(mapStateToProps,mapDispatchToProps) (AddPictureButton);
+

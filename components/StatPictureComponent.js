@@ -25,7 +25,7 @@ class StatPictureComponent extends Component {
   render() {
     return (
         <View style={styles.container}>
-          <Image style={styles.image} source={require("../assets/test.jpg")} />
+          <Image style={styles.image} source={this.props.image.uri} />
           <TouchableOpacity  onPress={this.showDetails}>
           <View style={[styles.imageContainer,styles.topButton]}>
           <Image
