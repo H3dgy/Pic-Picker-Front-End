@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 
 const initialStateUser = 
-{credits: 10, 
+{credits: 22, 
   settings: {
     gender: null, 
     age: null, 
@@ -21,7 +21,7 @@ const user = (initialState = initialStateUser, action) => {
   switch (action.type) {
     case 'CHANGE_SETTINGS':
       return {...initialState, settings: action.settings}
-    case 'CHANGE_SETTINGS':
+    case 'CHANGE_CREDITS':
       return {...initialState, credits: action.credits}
     default:
       return initialState

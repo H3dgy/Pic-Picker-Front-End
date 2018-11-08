@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
+import { connect } from 'react-redux';
+import { changeCredits } from '../redux/actions/actions';
 
 const heartColors = {
   activated: '#df1b24',
@@ -10,9 +12,6 @@ const heartColors = {
 class CreditHearthComponent extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      activated: false
-    }
   }
 
   handlePress = () => {
@@ -20,13 +19,14 @@ class CreditHearthComponent extends Component {
   }
 
   render() {
-    let { activated } = this.state;
+    let activated = this.props.credits >= 10;
+    console.log('activated: ', activated, "  credits: ", this.props.credits)
     return (
       <View style={styles.container}>
       <TouchableOpacity  onPress={this.handlePress}>
       <Ionicons style={styles.icon} raised = {true} name="ios-heart" size={32}  color={activated ? heartColors.activated : heartColors.deactivated } />
-      {!activated && <View style={styles.circle}>
-      <Text style={styles.text}>10</Text>
+      {activated && <View style={styles.circle}>
+      <Text style={styles.text}>{Math.floor(this.props.credits / 10)}</Text>
       </View>}
       </TouchableOpacity> 
       </View>  
@@ -34,7 +34,16 @@ class CreditHearthComponent extends Component {
   }
 }
 
-export default CreditHearthComponent;
+const mapStateToProps = (state) => ({
+  credits: state.user.credits
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  changeCredits: (credits) => dispatch(changeCredits(credits))
+});
+
+export default connect(mapStateToProps,mapDispatchToProps) (CreditHearthComponent);
+
 
 const styles = StyleSheet.create({
   container: {
