@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import AwesomeButton from "react-native-really-awesome-button";
 import { Image } from "react-native";
+import { changeSettings } from '../redux/actions/actions';
+import { connect } from 'react-redux';
 
 const standardColors = {
   color: "#c5bdcc",
@@ -34,15 +36,23 @@ class PartnerAgeSelector extends Component {
     };
   }
 
+
+  _setBucket = (id) => {
+    const userSettings = {...this.props.settings};
+    userSettings.feedbackAge[id] = !userSettings.feedbackAge[id];
+    this.props.changeSettings(userSettings);
+  }
+
   render() {
+    const bucketArray = this.props.settings.feedbackAge
     return (
       <View style={styles.container}>
         <AwesomeButton
           width={buttonDimensions.width}
           height={buttonDimensions.height}
-          backgroundColor={this.state.bucket1 ? selectedColors.color: standardColors.color}
-          backgroundDarker = {this.state.bucket1 ? selectedColors.backgroundColor: standardColors.backgroundColor}
-          onPress={() => this.setState({bucket1: !this.state.bucket1})}
+          backgroundColor={bucketArray[0] ? selectedColors.color: standardColors.color}
+          backgroundDarker = {bucketArray[0] ? selectedColors.backgroundColor: standardColors.backgroundColor}
+          onPress={() => this._setBucket(0)}
         >
         <Text>18 - 25</Text>
         </AwesomeButton>
@@ -50,9 +60,9 @@ class PartnerAgeSelector extends Component {
         <AwesomeButton
           width={buttonDimensions.width}
           height={buttonDimensions.height}
-          backgroundColor={this.state.bucket2 ? selectedColors.color: standardColors.color}
-          backgroundDarker = {this.state.bucket2 ? selectedColors.backgroundColor: standardColors.backgroundColor}
-          onPress={() => this.setState({bucket2: !this.state.bucket2})}
+          backgroundColor={bucketArray[1] ? selectedColors.color: standardColors.color}
+          backgroundDarker = {bucketArray[1] ? selectedColors.backgroundColor: standardColors.backgroundColor}
+          onPress={() => this._setBucket(1)}
         >
         <Text>25 - 35</Text>
         </AwesomeButton>
@@ -60,18 +70,18 @@ class PartnerAgeSelector extends Component {
         <AwesomeButton
           width={buttonDimensions.width}
           height={buttonDimensions.height}
-          backgroundColor={this.state.bucket3 ? selectedColors.color: standardColors.color}
-          backgroundDarker = {this.state.bucket3 ? selectedColors.backgroundColor: standardColors.backgroundColor}
-          onPress={() => this.setState({bucket3: !this.state.bucket3})}
+          backgroundColor={bucketArray[2] ? selectedColors.color: standardColors.color}
+          backgroundDarker = {bucketArray[2] ? selectedColors.backgroundColor: standardColors.backgroundColor}
+          onPress={() => this._setBucket(2)}
         >
         <Text>35 - 45</Text>
         </AwesomeButton>
         <AwesomeButton
           width={buttonDimensions.width}
           height={buttonDimensions.height}
-          backgroundColor={this.state.bucket4 ? selectedColors.color: standardColors.color}
-          backgroundDarker = {this.state.bucket4 ? selectedColors.backgroundColor: standardColors.backgroundColor}
-          onPress={() => this.setState({bucket4: !this.state.bucket4})}
+          backgroundColor={bucketArray[3] ? selectedColors.color: standardColors.color}
+          backgroundDarker = {bucketArray[3] ? selectedColors.backgroundColor: standardColors.backgroundColor}
+          onPress={() => this._setBucket(3)}
         >
         <Text>45+</Text>
         </AwesomeButton>
@@ -79,7 +89,16 @@ class PartnerAgeSelector extends Component {
     );
   }
 }
-export default PartnerAgeSelector;
+
+const mapStateToProps = (state) => ({
+  settings: state.user.settings 
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  changeSettings: (settings) => dispatch(changeSettings(settings))
+});
+
+export default connect(mapStateToProps,mapDispatchToProps) (PartnerAgeSelector);
 
 const styles = StyleSheet.create({
   container: {

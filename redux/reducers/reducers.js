@@ -6,7 +6,7 @@ const initialStateUser =
     gender: null, 
     age: null, 
     feedbackGender: {male: false, female: false}, 
-    feedbackAge: [null,null,null,null]
+    feedbackAge: []
   }
 }
 
