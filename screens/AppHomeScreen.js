@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import CreditHearthComponent from "../components/CreditHearthComponent";
 
 class AppHomeScreen extends Component {
   constructor() {

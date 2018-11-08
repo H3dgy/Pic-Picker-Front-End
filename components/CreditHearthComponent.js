@@ -13,7 +13,6 @@ class CreditHearthComponent extends Component {
     this.state = {
       activated: false
     }
-    console.log(props.navigator)
   }
 
   handlePress = () => {
