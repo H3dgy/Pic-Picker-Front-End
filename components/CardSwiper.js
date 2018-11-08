@@ -8,6 +8,10 @@ import {
   Animated
 } from "react-native";
 
+import { connect } from 'react-redux';
+import { changeCredits } from '../redux/actions/actions';
+
+
 const SCREEN_HEIGHT = Dimensions.get("window").height;
 const SCREEN_WIDTH = Dimensions.get("window").width;
 
@@ -18,7 +22,7 @@ const images = [
   { id: "4", uri: require("../assets/testimages/testimage4.jpg") }
 ];
 
-export default class CardSwiper extends React.Component {
+class CardSwiper extends React.Component {
   constructor(props) {
     super(props);
 
@@ -68,6 +72,10 @@ export default class CardSwiper extends React.Component {
     });
   }
 
+  _claimCredits = () => {
+    this.props.changeCredits(this.props.credits + 5);
+  }
+
   componentWillMount() {
     this.PanResponder = PanResponder.create({
       onStartShouldSetPanResponder: (e, gestureState) => true,
@@ -80,7 +88,8 @@ export default class CardSwiper extends React.Component {
             toValue: {x: SCREEN_WIDTH + 100, y:gestureState.dy} 
           }).start(()=>{
             this.setState({currentIndex: this.state.currentIndex+1}), () => {
-              this.position.setValue({x:0, y:0})
+              this.position.setValue({x:0, y:0});
+              this._claimCredits();
             }
           })
         }
@@ -89,7 +98,8 @@ export default class CardSwiper extends React.Component {
             toValue: {x: -SCREEN_WIDTH -100, y: gestureState.dy}
           }).start(() => {
             this.setState({currentIndex: this.state.currentIndex+1}, () => {
-              this.position.setValue({x:0,y:0})
+              this.position.setValue({x:0,y:0});
+              this._claimCredits();
             })
           })
         }
@@ -213,6 +223,17 @@ export default class CardSwiper extends React.Component {
     return <View style={{ flex: 1 }}>{this.renderImages()}</View>;
   }
 }
+
+const mapStateToProps = (state) => ({
+  credits: state.user.credits
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  changeCredits: (credits) => dispatch(changeCredits(credits))
+});
+
+export default connect(mapStateToProps,mapDispatchToProps) (CardSwiper);
+
 
 const style = StyleSheet.create({
   container: {
