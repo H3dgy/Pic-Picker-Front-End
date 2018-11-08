@@ -72,21 +72,7 @@ const AppBottomTabNavigator = createBottomTabNavigator(
 const AppStackNavigator = createStackNavigator({
   AppBottomTabNavigator: {
     screen: AppBottomTabNavigator,
-    navigationOptions: ({ navigation }) => ({
-      title: "App",
-      headerLeft: (
-        <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
-          <View>
-            <Icon name="md-menu" size={24} style={styles.menuButton} />
-          </View>
-        </TouchableOpacity>
-      ),
-      headerRight: (
-          <View style={{ marginRight: 30 }}>
-          <CreditHearthComponent navigator={navigation}/>
-          </View>
-      )
-    })
+    navigationOptions: (navigation) => TopNavigationOptions({navigation})
   },
   HearthScreen: {
     screen: CreditHearthScreen
@@ -96,46 +82,14 @@ const AppStackNavigator = createStackNavigator({
 const SettingsStackNavigator = createStackNavigator({
   SettingsNavigator: {
     screen: AppSettingsScreen,
-    navigationOptions: ({ navigation }) => ({
-      title: "App",
-      headerLeft: (
-        <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
-          <View>
-            <Icon name="md-menu" size={24} style={styles.menuButton} />
-          </View>
-        </TouchableOpacity>
-      ),
-      headerRight: (
-        <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
-          <View>
-            <Text>counter</Text>
-          </View>
-        </TouchableOpacity>
-      )
-    })
+    navigationOptions: (navigation) => TopNavigationOptions({navigation})
   }
 });
 
 const LogOutStackNavigator = createStackNavigator({
   SettingsNavigator: {
     screen: LogOutScreen,
-    navigationOptions: ({ navigation }) => ({
-      title: "App",
-      headerLeft: (
-        <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
-          <View>
-            <Icon name="md-menu" size={24} style={styles.menuButton} />
-          </View>
-        </TouchableOpacity>
-      ),
-      headerRight: (
-        <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
-          <View>
-            <Text>counter</Text>
-          </View>
-        </TouchableOpacity>
-      )
-    })
+    navigationOptions: (navigation) => TopNavigationOptions({navigation})
   }
 });
 
@@ -163,3 +117,21 @@ const styles = StyleSheet.create({
     marginRight: 40
   }
 });
+
+const TopNavigationOptions = (navigation) => (
+  {
+    title: "App",
+    headerLeft: (
+      <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
+        <View>
+          <Icon name="md-menu" size={24} style={styles.menuButton} />
+        </View>
+      </TouchableOpacity>
+    ),
+    headerRight: (
+        <View style={{ marginRight: 30 }}>
+        <CreditHearthComponent navigator={navigation}/>
+        </View>
+    )
+  }
+)
