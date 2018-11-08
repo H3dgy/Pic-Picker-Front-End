@@ -20,13 +20,14 @@ class CreditHearthComponent extends Component {
   }
 
   render() {
+    let { activated } = this.state;
     return (
       <View style={styles.container}>
       <TouchableOpacity  onPress={this.handlePress}>
-      <Ionicons style={styles.icon} raised = {true} name="ios-heart" size={32}  color={this.state.activated ? heartColors.activated : heartColors.deactivated } />
-      <View style={this.state.activated ? styles.hiddenCircle : styles.circle}>
+      <Ionicons style={styles.icon} raised = {true} name="ios-heart" size={32}  color={activated ? heartColors.activated : heartColors.deactivated } />
+      {!activated && <View style={styles.circle}>
       <Text style={styles.text}>10</Text>
-      </View>
+      </View>}
       </TouchableOpacity> 
       </View>  
     );
@@ -42,6 +43,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   text: {
+    color: "white"
   },
   icon: {
     width: 32,

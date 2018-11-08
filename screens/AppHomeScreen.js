@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import StatPictureComponent from "../components/StatPictureComponent";
-import AddPictureButton from "../components/AddPictureButton";
+import CardSwiper from "../components/CardSwiper";
 
 class AppHomeScreen extends Component {
   constructor() {
@@ -10,7 +9,7 @@ class AppHomeScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-          <AddPictureButton />
+          <CardSwiper />
       </View>
     );
   }
