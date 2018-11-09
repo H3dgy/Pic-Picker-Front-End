@@ -1,14 +1,9 @@
 import React, { Component } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  Dimensions
-} from "react-native";
+import { StyleSheet, Text, View, Image, Dimensions } from "react-native";
 import AwesomeButton from "react-native-really-awesome-button";
 import PieChartComponent from "./charts/PieChartComponent";
 import ColumnChartComponent from "./charts/ColumnChartComponent";
+//import PieComponent from "./charts/PieChartComponent";
 
 import { AppColors } from "../ColorScheme";
 
@@ -21,90 +16,90 @@ const standardColors = {
   textHighlight: "#9d4fd1"
 };
 
+/**
+ * Issues with graphs make it difficult to split out the subcomponents of this file
+ */
+
 class PieComponent extends Component {
-  render () {
+  render() {
     return (
-      <View style={{
-        justifyContent: "center",
-        alignItems: "center"
-      }}>
-<View
-      style={{
-        justifyContent: "center",
-        alignItems: "center"
-      }}>
-      <View
-      style={{
-        position: 'absolute',
-        flex: 1,
-        justifyContent: "center",
-        borderRadius: 50 / 2,
-        width: 50,
-        height: 50,
-        backgroundColor: 'white',
-        alignItems: "center",
-        zIndex: 1000
-      }}>
-      <Text>50%</Text>
+      <View style={pieComponentstyles.container}>
+        <View style={pieComponentstyles.container}>
+          <View
+            style={[
+              pieComponentstyles.container,
+              pieComponentstyles.circle,
+              pieComponentstyles.positioning
+            ]}
+          >
+            <Text>50%</Text>
+          </View>
+          <View>
+            <PieChartComponent liked={70} />
+          </View>
+        </View>
+        <Text>Gay</Text>
       </View>
-      <View>
-      <PieChartComponent></PieChartComponent>
-      </View>
-      </View>
-      <Text>Gay</Text>
-      </View>
-      
-    )
+    );
   }
 }
+
+const pieComponentstyles = StyleSheet.create({
+  container: {
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  circle: {
+    borderRadius: 50 / 2,
+    width: 50,
+    height: 50,
+    backgroundColor: "white"
+  },
+  positioning: {
+    position: "absolute",
+    zIndex: 1000
+  }
+});
+
+const categories = ["18-25","25-35","35-45","45+"]
 
 class AxisText extends Component {
 
+  _getCategories = () => {
+    return categories.map((item,i) => {
+      console.log(item);
+      return (
+        <View
+          style={axisStyles.textContainer}
+        >
+          <Text>{item}</Text>
+        </View>
+      )
+    })
+  }
+
   render() {
-    return (<View style={{
-      height: 15,
-      flexDirection: "row",
-      justifyContent: "center",
-      alignItems: "flex-start"
-    }}>
-      <View style={{
-        width: (SCREEN_WIDTH - 20) / 5,
-        height: 15,
-        alignItems: "center"
-      }}>
-      <Text>One</Text>
+    return (
+      <View style={axisStyles.container} >
+        {this._getCategories()}
       </View>
-      <View style={{
-        width: (SCREEN_WIDTH - 20) / 5,
-        height: 15,
-        alignItems: "center"
-      }}>
-      <Text>One</Text>
-      </View>
-      <View style={{
-        width: (SCREEN_WIDTH - 20) / 5,
-        height: 15,
-        alignItems: "center"
-      }}>
-      <Text>One</Text>
-      </View>
-      <View style={{
-        width: (SCREEN_WIDTH - 20) / 5,
-        height: 15,
-        alignItems: "center"
-      }}>
-      <Text>One</Text>
-      </View>
-      <View style={{
-        width: (SCREEN_WIDTH - 20) / 5,
-        height: 15,
-        alignItems: "center"
-      }}>
-      <Text>One</Text>
-      </View>
-    </View>)
+    );
   }
 }
+
+const axisStyles = StyleSheet.create({
+  container: {
+    height: 15,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "flex-start"
+  },
+  textContainer: {
+    width: (SCREEN_WIDTH - 20) / 5,
+    height: 15,
+    alignItems: "center"
+ }
+});
 
 class StatDetailPictureComponent extends Component {
   constructor(props) {
@@ -150,16 +145,16 @@ class StatDetailPictureComponent extends Component {
             marginBottom: 10
           }}
         >
-          <Image style={{
-            flex:1,
-            height: SCREEN_HEIGHT * 0.15,
-            marginRight: 2.5,
-            marginLeft: 10,
-            borderRadius: 5,
-          }}
-          source={require("../assets/testimages/testimage1.jpg")}
-          >
-          </Image>
+          <Image
+            style={{
+              flex: 1,
+              height: SCREEN_HEIGHT * 0.15,
+              marginRight: 2.5,
+              marginLeft: 10,
+              borderRadius: 5
+            }}
+            source={require("../assets/testimages/testimage1.jpg")}
+          />
           <View
             style={{
               flex: 1,
@@ -167,7 +162,7 @@ class StatDetailPictureComponent extends Component {
               flexDirection: "row",
               marginRight: 5,
               marginLeft: 2.5,
-              borderRadius: 5,
+              borderRadius: 5
             }}
           >
             <View
@@ -176,7 +171,7 @@ class StatDetailPictureComponent extends Component {
                 height: SCREEN_HEIGHT * 0.15,
                 justifyContent: "center",
                 alignItems: "center",
-                marginLeft: 20,
+                marginLeft: 20
               }}
             >
               <View
@@ -193,7 +188,7 @@ class StatDetailPictureComponent extends Component {
                   borderWidth: 1
                 }}
               >
-                <Text style={{fontSize: 16, fontWeight:"600"}}>10</Text>
+                <Text style={{ fontSize: 16, fontWeight: "600" }}>10</Text>
               </View>
               <View
                 style={{
@@ -209,7 +204,7 @@ class StatDetailPictureComponent extends Component {
                   borderWidth: 1
                 }}
               >
-                <Text style={{fontSize: 16, fontWeight:"600"}}>20</Text>
+                <Text style={{ fontSize: 16, fontWeight: "600" }}>20</Text>
               </View>
             </View>
             <View
@@ -226,7 +221,7 @@ class StatDetailPictureComponent extends Component {
                   width: 50,
                   height: 50,
                   marginTop: 10,
-                  marginBottom: 10,
+                  marginBottom: 10
                 }}
                 source={require("../assets/cup.png")}
               />
@@ -237,7 +232,7 @@ class StatDetailPictureComponent extends Component {
                   height: 50,
                   resizeMode: "cover",
                   marginTop: 10,
-                  marginBottom: 10,
+                  marginBottom: 10
                 }}
                 source={require("../assets/multipleUsers.png")}
               />
@@ -246,29 +241,28 @@ class StatDetailPictureComponent extends Component {
         </View>
         <Text>Succes per gender:</Text>
         <View
-        style={{
-          flexDirection: "row",
-          width: '100%',
-          justifyContent: "space-evenly"
-        }}>
-          <PieComponent></PieComponent>
-          <PieComponent></PieComponent>
+          style={{
+            flexDirection: "row",
+            width: "100%",
+            justifyContent: "space-evenly"
+          }}
+        >
+          <PieComponent />
+          <PieComponent />
         </View>
         <Text>Succes per age</Text>
-        <View style={
-         { height: 140}
-        }>
-        <ColumnChartComponent style={
-         { height: 125}
-        }></ColumnChartComponent>
-        <AxisText></AxisText>
+        <View style={{ height: 140 }}>
+          <ColumnChartComponent style={{ height: 125 }} />
+          <AxisText />
         </View>
-        <AwesomeButton 
+        <AwesomeButton
           backgroundColor={AppColors.purpleButton.color}
           backgroundDarker={AppColors.purpleButton.backgroundColor}
           height={40}
         >
-          <Text style={{color: 'white', marginTop: 5}}>Get more feedback</Text>
+          <Text style={{ color: "white", marginTop: 5 }}>
+            Get more feedback
+          </Text>
         </AwesomeButton>
       </View>
     );

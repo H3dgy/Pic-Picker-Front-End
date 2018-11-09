@@ -1,36 +1,37 @@
-import React from 'react'
-import { PieChart } from 'react-native-svg-charts'
-import { View, Text } from 'react-native-svg'
+import React from "react";
+import { PieChart } from "react-native-svg-charts";
+import { View, Text } from "react-native-svg";
 
-class PieChartComponent extends React.PureComponent {
+class PieChartComponent extends React.Component {
 
-    render() {
+  constructor(props) {
+    super(props)
+  }
 
-        const data = [
-            {
-                key: 1,
-                value: 65,
-                svg: { fill: '#600080' },
-                arc: { outerRadius: '130%', cornerRadius: 10,  }
-            },
-            {
-                key: 2,
-                value: 35,
-                svg: { fill: '#ecb3ff' }
-            }
-        ]
+  render() {
+    const data = [
+      {
+        key: 1,
+        value: this.props.liked,
+        svg: { fill: "#600080" },
+        arc: { outerRadius: "130%", cornerRadius: 10 }
+      },
+      {
+        key: 2,
+        value: 100 - this.props.liked,
+        svg: { fill: "#ecb3ff" }
+      }
+    ];
 
-        return (
+    return (
             <PieChart
-                style={{ height: 125, width: 125 }}
-                outerRadius={'70%'}
-                innerRadius={10}
-                data={data}
-            >
-            </PieChart>
-        )
-    }
-
+              style={{ height: 125, width: 125 }}
+              outerRadius={"70%"}
+              innerRadius={10}
+              data={data}
+            />
+    );
+  }
 }
 
-export default PieChartComponent
+export default PieChartComponent;
