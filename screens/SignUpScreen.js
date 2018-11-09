@@ -3,11 +3,7 @@ import AwesomeButton from "react-native-really-awesome-button";
 import SettingsComponent from "../components/SettingsComponent";
 import { StyleSheet, Text, View, Button, AsyncStorage } from "react-native";
 import { connect } from 'react-redux';
-
-const signUpColors = {
-  color: "#9d4fd1",
-  backgroundColor: "#733b99"
-};
+import {AppColors} from '../ColorScheme'
 
 class SignUpScreen extends Component {
   constructor() {
@@ -27,8 +23,8 @@ class SignUpScreen extends Component {
         <AwesomeButton
           style={styles.buttonContainer}
           onPress={this.signUp}
-          backgroundColor={signUpColors.color}
-          backgroundDarker={signUpColors.backgroundColor}
+          backgroundColor={AppColors.purpleButton.color}
+          backgroundDarker={AppColors.purpleButton.backgroundColor}
         >
           Let's go!
         </AwesomeButton>
@@ -53,7 +49,7 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
     marginBottom: 20,
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: AppColors.mainBackground,
     flexDirection: "column",
     alignItems: "center"
   }
