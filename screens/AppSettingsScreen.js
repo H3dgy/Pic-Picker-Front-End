@@ -1,6 +1,8 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Dimensions } from "react-native";
 import SettingsComponent from "../components/SettingsComponent";
+
+const SCREEN_HEIGHT = Dimensions.get("window").height;
 
 class AppSettingsScreen extends Component {
   constructor() {

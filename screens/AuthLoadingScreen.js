@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import { changeSettings } from '../redux/actions/actions';
 import { connect } from 'react-redux';
+import {AppColors} from '../ColorScheme';
 
 class AuthLoadingScreen extends Component {
 
@@ -47,7 +48,7 @@ export default connect(mapStateToProps,mapDispatchToProps) (AuthLoadingScreen);
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: AppColors.mainBackground,
     alignItems: 'center',
     justifyContent: 'center',
   },

@@ -17,9 +17,9 @@ class SettingsComponent extends Component {
         <SexSelector/>
         <Text>And feel </Text>
         <AgeSelector/>
-        <Text>So give me that feedback from: </Text>
+        <Text>I prefer feedback from: </Text>
         <PartnerSexSelector/>
-        <Text>Who fit within within the following buckets</Text>
+        <Text>And preferable from the following ages</Text>
         <PartnerAgeSelector/>
       </View>
     );
