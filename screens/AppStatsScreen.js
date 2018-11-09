@@ -5,14 +5,6 @@ import AddPictureButton from "../components/AddPictureButton";
 import { connect } from 'react-redux';
 import { changeImageList } from '../redux/actions/actions';
 
-
-const images = [
-  { id: "1", uri: require("../assets/testimages/testimage1.jpg") },
-  { id: "2", uri: require("../assets/testimages/testimage2.jpg") },
-  { id: "3", uri: require("../assets/testimages/testimage3.jpg") },
-  { id: "4", uri: require("../assets/testimages/testimage4.jpg") }
-];
-
 class AppStatsScreen extends Component {
   constructor(props) {
     super(props);

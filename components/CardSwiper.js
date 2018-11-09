@@ -27,7 +27,6 @@ class CardSwiper extends React.Component {
     super(props);
 
     this.state = {
-      images: images,
       currentIndex: 0
     };
 
@@ -108,7 +107,7 @@ class CardSwiper extends React.Component {
   }
 
   renderImages = () => {
-    return images
+    return this.props.imageStream
       .map((item, i) => {
         if (i < this.state.currentIndex) {
           return null;
@@ -225,7 +224,8 @@ class CardSwiper extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  credits: state.user.credits
+  credits: state.user.credits,
+  imageStream: state.imageStream
 });
 
 const mapDispatchToProps = (dispatch) => ({
