@@ -5,16 +5,8 @@ import {
   Text, 
   View,
   Button } from "react-native";
+import {AppColors} from "../ColorScheme"
 
-  const signUpColors = {
-    color: "#9d4fd1",
-    backgroundColor: "#733b99",
-  }
-
-  const logInColors = {
-    color: "#9d4fd1",
-    backgroundColor: "#733b99",
-  }
 class WelcomeScreen extends Component {
   constructor() {
     super();
@@ -23,13 +15,13 @@ class WelcomeScreen extends Component {
     return <View style={styles.container}>
         <AwesomeButton style={styles.buttonContainer}
           onPress={() => this.props.navigation.navigate("SignIn")}
-          backgroundColor={logInColors.color}
-          backgroundDarker={logInColors.backgroundColor}
+          backgroundColor={AppColors.purpleButton.color}
+          backgroundDarker={AppColors.purpleButton.backgroundColor}
         >Sign in</AwesomeButton>
         <AwesomeButton style={styles.buttonContainer}
           onPress={() => this.props.navigation.navigate("SignUp")}
-          backgroundColor={signUpColors.color}
-          backgroundDarker={signUpColors.backgroundColor}
+          backgroundColor={AppColors.purpleButton.color}
+          backgroundDarker={AppColors.purpleButton.backgroundColor}
         >Sign up</AwesomeButton>
       </View>;
   }
@@ -40,7 +32,7 @@ export default WelcomeScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: AppColors.mainBackground,
     alignItems: "center",
     justifyContent: "center"
   },
