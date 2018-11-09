@@ -21,6 +21,91 @@ const standardColors = {
   textHighlight: "#9d4fd1"
 };
 
+class PieComponent extends Component {
+  render () {
+    return (
+      <View style={{
+        justifyContent: "center",
+        alignItems: "center"
+      }}>
+<View
+      style={{
+        justifyContent: "center",
+        alignItems: "center"
+      }}>
+      <View
+      style={{
+        position: 'absolute',
+        flex: 1,
+        justifyContent: "center",
+        borderRadius: 50 / 2,
+        width: 50,
+        height: 50,
+        backgroundColor: 'white',
+        alignItems: "center",
+        zIndex: 1000
+      }}>
+      <Text>50%</Text>
+      </View>
+      <View>
+      <PieChartComponent></PieChartComponent>
+      </View>
+      </View>
+      <Text>Gay</Text>
+      </View>
+      
+    )
+  }
+}
+
+class AxisText extends Component {
+
+  render() {
+    return (<View style={{
+      height: 15,
+      flexDirection: "row",
+      justifyContent: "center",
+      alignItems: "flex-start"
+    }}>
+      <View style={{
+        width: (SCREEN_WIDTH - 20) / 5,
+        height: 15,
+        alignItems: "center"
+      }}>
+      <Text>One</Text>
+      </View>
+      <View style={{
+        width: (SCREEN_WIDTH - 20) / 5,
+        height: 15,
+        alignItems: "center"
+      }}>
+      <Text>One</Text>
+      </View>
+      <View style={{
+        width: (SCREEN_WIDTH - 20) / 5,
+        height: 15,
+        alignItems: "center"
+      }}>
+      <Text>One</Text>
+      </View>
+      <View style={{
+        width: (SCREEN_WIDTH - 20) / 5,
+        height: 15,
+        alignItems: "center"
+      }}>
+      <Text>One</Text>
+      </View>
+      <View style={{
+        width: (SCREEN_WIDTH - 20) / 5,
+        height: 15,
+        alignItems: "center"
+      }}>
+      <Text>One</Text>
+      </View>
+    </View>)
+  }
+}
+
 class StatDetailPictureComponent extends Component {
   constructor(props) {
     super(props);
@@ -42,13 +127,13 @@ class StatDetailPictureComponent extends Component {
           flexDirection: "column",
           justifyContent: "space-between",
           alignItems: "center",
-          height: SCREEN_HEIGHT - 170,
+          height: SCREEN_HEIGHT - 200,
           width: SCREEN_WIDTH - 20,
           position: "absolute",
           marginTop: 5,
           marginBottom: 5,
-          paddingTop: 20,
-          paddingBottom: 20,
+          paddingTop: 10,
+          paddingBottom: 10,
           marginLeft: 10,
           marginRight: 10,
           borderColor: "grey",
@@ -59,9 +144,10 @@ class StatDetailPictureComponent extends Component {
       >
         <View
           style={{
-            flex: 1,
+            height: SCREEN_HEIGHT * 0.15,
             flexDirection: "row",
-            justifyContent: "space-between"
+            justifyContent: "space-between",
+            marginBottom: 10
           }}
         >
           <Image style={{
@@ -158,48 +244,31 @@ class StatDetailPictureComponent extends Component {
             </View>
           </View>
         </View>
-        <View
-          style={{
-            flex: 1,
-            backgroundColor: "green"
-          }}
-        />
-        <Text>Test</Text>
+        <Text>Succes per gender:</Text>
         <View
         style={{
-          flex:1,
-          justifyContent: "center",
-          alignItems: "center"
+          flexDirection: "row",
+          width: '100%',
+          justifyContent: "space-evenly"
         }}>
-        <View
-        style={{
-          position: 'absolute',
-          flex: 1,
-          justifyContent: "center",
-          borderRadius: 50 / 2,
-          width: 50,
-          height: 50,
-          marginTop: 10,
-          marginBottom: 10,
-          backgroundColor: 'white',
-          alignItems: "center",
-          borderColor: "white",
-          borderWidth: 2,
-          zIndex: 1000
-        }}>
-        <Text>50%</Text>
+          <PieComponent></PieComponent>
+          <PieComponent></PieComponent>
         </View>
-        <PieChartComponent></PieChartComponent>
+        <Text>Succes per age</Text>
+        <View style={
+         { height: 140}
+        }>
+        <ColumnChartComponent style={
+         { height: 125}
+        }></ColumnChartComponent>
+        <AxisText></AxisText>
         </View>
-        <Text>Test</Text>
-        <ColumnChartComponent></ColumnChartComponent>
-        <Text>Test</Text>
-        <ColumnChartComponent></ColumnChartComponent>
         <AwesomeButton 
           backgroundColor={AppColors.purpleButton.color}
           backgroundDarker={AppColors.purpleButton.backgroundColor}
+          height={40}
         >
-          <Text style={{color: 'white'}}>Get more feedback</Text>
+          <Text style={{color: 'white', marginTop: 5}}>Get more feedback</Text>
         </AwesomeButton>
       </View>
     );

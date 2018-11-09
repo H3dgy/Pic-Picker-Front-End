@@ -1,18 +1,23 @@
 import React from 'react'
-import { View } from 'react-native'
+import { View, Dimensions } from 'react-native'
 import { BarChart, XAxis, Grid } from 'react-native-svg-charts'
 import { Text } from 'react-native-svg'
+import * as scale from 'd3-scale'
 
-class ColumnChartComponent extends React.PureComponent {
 
+const SCREEN_WIDTH = Dimensions.get("window").width;
+const SCREEN_HEIGHT = Dimensions.get("window").height;
+
+
+class ColumnChartComponent extends React.Component {
     render() {
 
-        const data = [ 10, 5, 25, 15, 20 ]
+        const data = [ 8, 6, 0, 4, 7 ]
 
-        const CUT_OFF = 20
+        const CUT_OFF = 8
         const Labels = ({ x, y, bandwidth, data }) => (
             data.map((value, index) => (
-                <Text
+                (value>0) && <Text
                     key={ index }
                     x={ x(index) + (bandwidth / 2) }
                     y={ value < CUT_OFF ? y(value) - 10 : y(value) + 15 }
@@ -25,25 +30,8 @@ class ColumnChartComponent extends React.PureComponent {
                 </Text>
             ))
         )
-
-        const AxisLabels = ({ x, y, bandwidth, data }) => (
-            data.map((value, index) => (
-                <Text
-                    key={ index }
-                    x={ x(index) + (bandwidth / 2) }
-                    y={ 20 }
-                    fontSize={ 14 }
-                    fill={ value >= CUT_OFF ? 'white' : 'black' }
-                    alignmentBaseline={ 'middle' }
-                    textAnchor={ 'middle' }
-                >
-                    {value}
-                </Text>
-            ))
-        )
-
         return (
-            <View style={{ flexDirection: 'row', height: 150, paddingVertical: 16 }}>
+             <View style={{ flexDirection: 'row', height: 125 }}>
                 <BarChart
                     style={{ flex: 1 }}
                     data={data}
@@ -53,18 +41,10 @@ class ColumnChartComponent extends React.PureComponent {
                     gridMin={0}
                 >
                 <Labels/>
-                <XAxis
-                    style={{ marginHorizontal: -10 }}
-                    data={ data }
-                    formatLabel={ (value, index) => index }
-                    contentInset={{ left: 10, right: 10 }}
-                    svg={{ fontSize: 10, fill: 'black' }}
-                />
                 </BarChart>
             </View>
         )
     }
-
 }
 
 export default ColumnChartComponent
