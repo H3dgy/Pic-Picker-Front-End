@@ -1,6 +1,6 @@
 import React from 'react'
 import { View } from 'react-native'
-import { BarChart, Grid } from 'react-native-svg-charts'
+import { BarChart, XAxis, Grid } from 'react-native-svg-charts'
 import { Text } from 'react-native-svg'
 
 class ColumnChartComponent extends React.PureComponent {
@@ -26,6 +26,22 @@ class ColumnChartComponent extends React.PureComponent {
             ))
         )
 
+        const AxisLabels = ({ x, y, bandwidth, data }) => (
+            data.map((value, index) => (
+                <Text
+                    key={ index }
+                    x={ x(index) + (bandwidth / 2) }
+                    y={ 20 }
+                    fontSize={ 14 }
+                    fill={ value >= CUT_OFF ? 'white' : 'black' }
+                    alignmentBaseline={ 'middle' }
+                    textAnchor={ 'middle' }
+                >
+                    {value}
+                </Text>
+            ))
+        )
+
         return (
             <View style={{ flexDirection: 'row', height: 150, paddingVertical: 16 }}>
                 <BarChart
@@ -37,6 +53,13 @@ class ColumnChartComponent extends React.PureComponent {
                     gridMin={0}
                 >
                 <Labels/>
+                <XAxis
+                    style={{ marginHorizontal: -10 }}
+                    data={ data }
+                    formatLabel={ (value, index) => index }
+                    contentInset={{ left: 10, right: 10 }}
+                    svg={{ fontSize: 10, fill: 'black' }}
+                />
                 </BarChart>
             </View>
         )

@@ -1,26 +1,10 @@
 import React from "react";
-import {
-  StyleSheet,
-  Dimensions,
-  Image,
-  View,
-  PanResponder,
-  Animated
-} from "react-native";
-
+import {Dimensions, Image, View, PanResponder, Animated} from "react-native";
 import { connect } from 'react-redux';
 import { changeCredits } from '../redux/actions/actions';
 
-
 const SCREEN_HEIGHT = Dimensions.get("window").height;
 const SCREEN_WIDTH = Dimensions.get("window").width;
-
-const images = [
-  { id: "1", uri: require("../assets/testimages/testimage1.jpg") },
-  { id: "2", uri: require("../assets/testimages/testimage2.jpg") },
-  { id: "3", uri: require("../assets/testimages/testimage3.jpg") },
-  { id: "4", uri: require("../assets/testimages/testimage4.jpg") }
-];
 
 class CardSwiper extends React.Component {
   constructor(props) {
@@ -233,13 +217,3 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(mapStateToProps,mapDispatchToProps) (CardSwiper);
-
-
-const style = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center"
-  }
-});

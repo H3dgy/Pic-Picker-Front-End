@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import AwesomeButton from "react-native-really-awesome-button";
+import PieChartComponent from "../components/charts/PieChartComponent";
+import ColumnChartComponent from "../components/charts/ColumnChartComponent";
+import StatDetailPictureComponent from "../components/StatDetailPictureComponent";
 
 const standardColors = {
   color: "white",
@@ -23,6 +26,7 @@ class StatPictureComponent extends Component {
   }
 
   render() {
+    console.log("picture uri: ", this.props.image.uri)
     return (
         <View style={styles.container}>
           <Image style={styles.image} source={this.props.image.uri} />

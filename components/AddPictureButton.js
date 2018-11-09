@@ -6,11 +6,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 import { connect } from 'react-redux';
 import { changeCredits } from '../redux/actions/actions';
 import { changeImageList } from '../redux/actions/actions';
-
-const standardColors = {
-  color: "#c5bdcc",
-  backgroundColor: "#9e95a5"
-};
+import { AppColors } from "../ColorScheme";
 
 class AddPictureButton extends Component {
   constructor(props) {
@@ -31,20 +27,41 @@ class AddPictureButton extends Component {
       base64: true
     })
     if(!result.cancelled) {
-      const imageList = [...this.props.imageList];
-      const image = { 
-        id: imageList.length + 1, 
-        uri:  result.uri, 
-        people: 10, 
-        score: 8 };
-      imageList.push(image);
-      this.props.changeImageList(imageList)
+      let base64Img = `data:image/jpg;base64,${result.base64}`;
+
+      const apiUrl = `https://api.cloudinary.com/v1_1/diek0ztdy/image/upload`;
+      const data = {
+        "file": base64Img,
+        "upload_preset": "ch3auuqz"
+      }
+
+      fetch(apiUrl, {
+        body: JSON.stringify(data),
+        headers: {
+          'content-type': 'application/json'
+        },
+        method: 'POST',
+      }).then(async r => {
+          let data = await r.json()
+          this._addImagetoImages(data.secure_url)
+          return data.secure_url
+      }).catch(err=>console.log(err))
     }
   };
 
+  _addImagetoImages = (url) => {
+    const imageList = [...this.props.imageList];
+    const image = { 
+      id: imageList.length + 1, 
+      uri: {uri:  url}, 
+      people: 10, 
+      score: 8 };
+    imageList.push(image);
+    this.props.changeImageList(imageList)
+  }
+
   render() {
     const { hasCameraPermission } = this.state;
-    let { image } = this.state;
     if (hasCameraPermission === null) {
       return <View/>
     } else if (hasCameraPermission === false) {
@@ -57,8 +74,8 @@ class AddPictureButton extends Component {
             height={50}
             borderRadius={25}
             onPress={this._pickImage}
-            backgroundColor={standardColors.color}
-            backgroundDarker={standardColors.backgroundColor}
+            backgroundColor={AppColors.purpleButton.color}
+            backgroundDarker={AppColors.purpleButton.backgroundColor}
             style={{ marginBottom: 10, marginTop: 20 }}
           >
             <Icon name="ios-add" size={34} color={"white"} />
