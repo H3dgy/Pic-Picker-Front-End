@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, Button, AsyncStorage } from "react-native";
 import { connect } from 'react-redux';
 import { changeCredits, changeSettings, changeActive } from '../redux/actions/actions';
 import {initialStateUser, initialStateImages, initialStateImageStream} from "../redux/reducers/initialState"
-
+import {AppColors} from "../ColorScheme"
 
 const logOutColors = {
   color: "#de1c24",
@@ -33,8 +33,8 @@ class LogOutScreen extends Component {
       <View style={styles.container}>
         <AwesomeButton
           onPress={this.logOut}
-          backgroundColor={logOutColors.color}
-          backgroundDarker={logOutColors.backgroundColor}
+          backgroundColor={AppColors.redButton.color}
+          backgroundDarker={AppColors.redButton.backgroundColor}
         >
           <Text style={styles.text}>Log out</Text>
         </AwesomeButton>
@@ -57,7 +57,7 @@ export default connect(mapStateToProps,mapDispatchToProps) (LogOutScreen);
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: AppColors.mainBackground,
     alignItems: "center",
     justifyContent: "center",
     paddingBottom: 50
