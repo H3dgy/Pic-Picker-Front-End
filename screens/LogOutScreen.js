@@ -6,10 +6,6 @@ import { changeCredits, changeSettings, changeActive } from '../redux/actions/ac
 import {initialStateUser, initialStateImages, initialStateImageStream} from "../redux/reducers/initialState"
 import {AppColors} from "../ColorScheme"
 
-const logOutColors = {
-  color: "#de1c24",
-  backgroundColor: "#9B1319"
-};
 
 class LogOutScreen extends Component {
   constructor() {

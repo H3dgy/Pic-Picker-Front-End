@@ -3,11 +3,7 @@ import { StyleSheet, Text, View, Image} from "react-native";
 import { connect } from 'react-redux';
 import { changeCredits } from '../redux/actions/actions';
 import AwesomeButton from "react-native-really-awesome-button";
-
-const heartColors = {
-  color: '#df1b24',
-  backgroundColor: '#c37175',
-}
+import {AppColors} from "../ColorScheme";
 
 class CreditHearthScreen extends Component {
   constructor(props) {
@@ -26,8 +22,8 @@ class CreditHearthScreen extends Component {
         <Text style={styles.feedbackText}>One credit to get feedback from ten people</Text>
         <AwesomeButton
           onPress={this._buyCredits}
-          backgroundColor={heartColors.color}
-          backgroundDarker={heartColors.backgroundColor}
+          backgroundColor={AppColors.purpleButton.color}
+          backgroundDarker={AppColors.purpleButton.backgroundColor}
         >
           <Text style={styles.text}>Buy Credit</Text>
         </AwesomeButton>
@@ -50,7 +46,7 @@ export default connect(mapStateToProps,mapDispatchToProps) (CreditHearthScreen);
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: AppColors.mainBackground,
     alignItems: "center",
     justifyContent: "center",
     paddingBottom: 50
