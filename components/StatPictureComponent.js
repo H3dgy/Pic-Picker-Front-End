@@ -4,6 +4,7 @@ import AwesomeButton from "react-native-really-awesome-button";
 import PieChartComponent from "../components/charts/PieChartComponent";
 import ColumnChartComponent from "../components/charts/ColumnChartComponent";
 import StatDetailPictureComponent from "../components/StatDetailPictureComponent";
+import StatSummaryComponent from "./StatSummaryComponent";
 
 const standardColors = {
   color: "white",
@@ -28,28 +29,9 @@ class StatPictureComponent extends Component {
   render() {
     console.log("picture uri: ", this.props.image.uri)
     return (
-        <View style={styles.container}>
-          <Image style={styles.image} source={this.props.image.uri} />
           <TouchableOpacity  onPress={this.showDetails}>
-          <View style={[styles.imageContainer,styles.topButton]}>
-          <Image
-            source={require("../assets/favorite.png")}
-            style={styles.star}
-          />
-          <Text style={styles.paragraph}>{this.state.score}</Text>
-        </View>
+          <StatSummaryComponent></StatSummaryComponent>
           </TouchableOpacity>
-        <AwesomeButton
-        onPress = {this.showDetails}
-        width={50}
-        height={50}
-        borderRadius={25}
-        backgroundColor={standardColors.color}
-        style={styles.bottomButton}
-        >
-          <Text>{this.state.people}</Text>
-        </AwesomeButton>
-      </View>
     );
   }
 }

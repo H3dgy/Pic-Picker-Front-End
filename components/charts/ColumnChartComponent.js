@@ -1,20 +1,13 @@
 import React from 'react'
-import { View, Dimensions } from 'react-native'
-import { BarChart, XAxis, Grid } from 'react-native-svg-charts'
+import { View} from 'react-native'
+import { BarChart} from 'react-native-svg-charts'
 import { Text } from 'react-native-svg'
-import * as scale from 'd3-scale'
-
-
-const SCREEN_WIDTH = Dimensions.get("window").width;
-const SCREEN_HEIGHT = Dimensions.get("window").height;
-
 
 class ColumnChartComponent extends React.Component {
     render() {
-
-        const data = [ 8, 6, 0, 4, 7 ]
-
-        const CUT_OFF = 8
+        console.log('props: ', this.props);
+        const data = this.props.feedbackAge.map(x => Math.round(x/10))
+        const CUT_OFF = Math.max(data);
         const Labels = ({ x, y, bandwidth, data }) => (
             data.map((value, index) => (
                 (value>0) && <Text

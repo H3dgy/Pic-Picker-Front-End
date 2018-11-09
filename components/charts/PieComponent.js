@@ -14,13 +14,13 @@ export default class PieComponent extends Component {
               pieComponentstyles.positioning
             ]}
           >
-            <Text>50%</Text>
+            <Text>{this.props.feedbackGender}%</Text>
           </View>
           <View>
-            <PieChartComponent liked={70} />
+            <PieChartComponent liked={this.props.feedbackGender} highlight={this.props.highlight}/>
           </View>
         </View>
-        <Text>Gay</Text>
+        <Text>{this.props.name}</Text>
       </View>
     );
   }

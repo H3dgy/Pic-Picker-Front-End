@@ -13,7 +13,7 @@ export default class AxisText extends Component {
     return categories.map((item, i) => {
       console.log(item);
       return (
-        <View style={axisStyles.textContainer}>
+        <View key={item} style={axisStyles.textContainer}>
           <Text>{item}</Text>
         </View>
       );

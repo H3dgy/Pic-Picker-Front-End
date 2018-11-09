@@ -1,65 +1,57 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View, Image, Dimensions } from "react-native";
 import AwesomeButton from "react-native-really-awesome-button";
+//import PieChartComponent from "./charts/PieChartComponent";
 import PieComponent from "./charts/PieComponent";
 import ColumnChartComponent from "./charts/ColumnChartComponent";
 import AxisText from "./charts/AxisText";
 
-import { connect } from 'react-redux';
+//import PieComponent from "./charts/PieChartComponent";
+
 import { AppColors } from "../ColorScheme";
-import StatSummaryComponent from "./StatSummaryComponent";
+
 
 const SCREEN_WIDTH = Dimensions.get("window").width;
 const SCREEN_HEIGHT = Dimensions.get("window").height;
 
-/**
- * Issues with graphs make it difficult to split out the subcomponents of this file
- */
+class StatSummaryComponent extends Component {
 
-
-class StatDetailPictureComponent extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      score: 7,
-      people: 10,
-      feedbackGender: {male: 10, female: 90}, 
-      feedbackAge: [80,23,56,76]
-    };
-    console.log('check settings: ', this.props.settings)
+  constructor() {
+    super()
   }
-
-  showDetails = () => {
-    this.props.navigation.navigate("StatsDetailScreen");
-  };
 
   render() {
-    return (
-      <View style={mainStyles.container}>
-        <StatSummaryComponent uri={this.props.active.uri} data={this.props.active.data}></StatSummaryComponent>
-        <Text>Succes per gender:</Text>
-        <View style={mainStyles.pieContainer}>
-          <PieComponent feedbackGender={this.props.active.data.feedbackGender.male} name={'male'} highlight={this.props.settings.feedbackGender.male}/>
-          <PieComponent feedbackGender={this.props.active.data.feedbackGender.female} name={'female'} highlight={this.props.settings.feedbackGender.female}/>
+    console.log('props summary: ',this.props)
+   return (<View style={mainStyles.topContainer}>
+    <Image
+      style={{ flex: 1, height: "100%", borderRadius: 10 }}
+      source={this.props.uri}
+    />
+    <View style={mainStyles.scoreContainer}>
+      <View style={mainStyles.subScoreContainer}>
+        <View style={mainStyles.textCircles}>
+          <Text style={mainStyles.scoreText}>{this.props.data.score}</Text>
         </View>
-        <Text>Succes per age</Text>
-        <View style={{ height: 140 }}>
-          <ColumnChartComponent feedbackAge={this.props.active.data.feedbackAge}/>
-          <AxisText />
+        <View style={mainStyles.textCircles}>
+          <Text style={mainStyles.scoreText}>{this.props.data.people}</Text>
         </View>
-        <AwesomeButton
-          backgroundColor={AppColors.purpleButton.color}
-          backgroundDarker={AppColors.purpleButton.backgroundColor}
-          height={40}
-        >
-          <Text style={{ color: "white", marginTop: 5 }}>
-            Get more feedback
-          </Text>
-        </AwesomeButton>
       </View>
-    );
+      <View style={mainStyles.subScoreContainer}>
+        <Image
+          style={mainStyles.logo}
+          source={require("../assets/cup.png")}
+        />
+        <Image
+          style={mainStyles.logo}
+          source={require("../assets/multipleUsers.png")}
+        />
+      </View>
+    </View>
+  </View>)
   }
 }
+
+export default StatSummaryComponent;
 
 const mainStyles = StyleSheet.create({
   container: {
@@ -127,16 +119,3 @@ const mainStyles = StyleSheet.create({
     justifyContent: "space-evenly"
   }
 });
-
-const mapStateToProps = (state) => ({
-  active: state.images.active,
-  settings: state.user.settings
-});
-
-const mapDispatchToProps = (dispatch) => ({
- 
-});
-
-export default connect(mapStateToProps,mapDispatchToProps) (StatDetailPictureComponent);
-
-

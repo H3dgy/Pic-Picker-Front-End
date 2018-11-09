@@ -1,6 +1,7 @@
 import React from "react";
 import { PieChart } from "react-native-svg-charts";
 import { View, Text } from "react-native-svg";
+import {AppColors} from "../../ColorScheme";
 
 class PieChartComponent extends React.Component {
 
@@ -9,17 +10,19 @@ class PieChartComponent extends React.Component {
   }
 
   render() {
+    console.log('props pie: ', this.props)
+    
     const data = [
       {
         key: 1,
         value: this.props.liked,
-        svg: { fill: "#600080" },
+        svg: { fill: this.props.highlight ? AppColors.purpleGraph.highlighted: AppColors.greyGraph.highlighted },
         arc: { outerRadius: "130%", cornerRadius: 10 }
       },
       {
         key: 2,
         value: 100 - this.props.liked,
-        svg: { fill: "#ecb3ff" }
+        svg: { fill: this.props.highlight ? AppColors.purpleGraph.other: AppColors.greyGraph.other  }
       }
     ];
 

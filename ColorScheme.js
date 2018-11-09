@@ -8,4 +8,12 @@ export const AppColors = {
     color: "#de1c24",
     backgroundColor: "#9B1319"
   },
+  purpleGraph: {
+    highlighted: "#600080",
+    other: "#ecb3ff"
+  },
+  greyGraph: {
+    highlighted: '#626262',
+    other: '#818181'
+  }
 }
