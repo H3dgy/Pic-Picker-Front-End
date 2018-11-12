@@ -7,6 +7,8 @@ const user = (initialState = initialStateUser, action) => {
       return {...initialState, settings: action.settings}
     case 'CHANGE_CREDITS':
       return {...initialState, credits: action.credits}
+    case 'CHANGE_USER':
+      return {...action.user}
     default:
       return initialState
   }

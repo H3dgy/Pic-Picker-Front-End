@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import AwesomeButton from "react-native-really-awesome-button";
 import { Image } from "react-native";
-import { changeSettings } from '../redux/actions/actions';
+import { changeUser } from '../redux/actions/actions';
 import { connect } from 'react-redux';
 
 class PartnerSexSelector extends Component {
@@ -15,16 +15,34 @@ class PartnerSexSelector extends Component {
   }
 
   maleSelection = () => {
-    const userSettings = {...this.props.settings};
-    userSettings.feedbackGender.male = !userSettings.feedbackGender.male;
-    this.props.changeSettings(userSettings);
+    const user = {...this.props.user};
+    user.settings.feedbackGender.male = !user.settings.feedbackGender.male;
+    this._updateSettings(user);
   };
 
   femaleSelection = () => {
-    const userSettings = {...this.props.settings};
-    userSettings.feedbackGender.female = !userSettings.feedbackGender.female;
-    this.props.changeSettings(userSettings);
+    const user = {...this.props.user};
+    user.settings.feedbackGender.female = !user.settings.feedbackGender.female;
+    this._updateSettings(user);
   };
+
+  _updateSettings = (user) => {
+    fetch('http://localhost:3000/updatesettings', {
+      method: 'POST',
+      body: JSON.stringify(user),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+    .then((res) => res.json())
+    .then((res) => {
+      this.props.changeUser(res);
+    })
+    .catch((error)=> {
+      console.log(error);
+    })
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -33,8 +51,8 @@ class PartnerSexSelector extends Component {
           height={80}
           borderRadius={40}
           onPress={this.femaleSelection}
-          backgroundColor={this.props.settings.feedbackGender.female ? femaleColors.color : standardColors.color}
-          backgroundDarker = {this.props.settings.feedbackGender.female ? femaleColors.backgroundColor : standardColors.backgroundColor}
+          backgroundColor={this.props.user.settings.feedbackGender.female ? femaleColors.color : standardColors.color}
+          backgroundDarker = {this.props.user.settings.feedbackGender.female ? femaleColors.backgroundColor : standardColors.backgroundColor}
         >
           <Image
             source={require("../assets/female.png")}
@@ -46,8 +64,8 @@ class PartnerSexSelector extends Component {
           height={80}
           borderRadius={40}
           onPress={this.maleSelection}
-          backgroundColor={this.props.settings.feedbackGender.male ? maleColors.color: standardColors.color}
-          backgroundDarker = {this.props.settings.feedbackGender.male ? maleColors.backgroundColor: standardColors.backgroundColor}
+          backgroundColor={this.props.user.settings.feedbackGender.male ? maleColors.color: standardColors.color}
+          backgroundDarker = {this.props.user.settings.feedbackGender.male ? maleColors.backgroundColor: standardColors.backgroundColor}
         >
           <Image
             source={require("../assets/male.png")}
@@ -61,11 +79,11 @@ class PartnerSexSelector extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  settings: state.user.settings 
+  user: state.user 
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  changeSettings: (settings) => dispatch(changeSettings(settings))
+  changeUser: (user) => dispatch(changeUser(user))
 });
 
 export default connect(mapStateToProps,mapDispatchToProps) (PartnerSexSelector);

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import AwesomeButton from "react-native-really-awesome-button";
 import { Image } from "react-native";
-import { changeSettings } from '../redux/actions/actions';
+import { changeSettings, changeUser } from '../redux/actions/actions';
 import { connect } from 'react-redux';
 
 const standardColors = {
@@ -38,13 +38,31 @@ class PartnerAgeSelector extends Component {
 
 
   _setBucket = (id) => {
-    const userSettings = {...this.props.settings};
-    userSettings.feedbackAge[id] = !userSettings.feedbackAge[id];
-    this.props.changeSettings(userSettings);
+    const user = {...this.props.user};
+    user.settings.feedbackAge[id] = !user.settings.feedbackAge[id];
+    this._updateSettings(user);
   }
 
+  _updateSettings = (user) => {
+    fetch('http://localhost:3000/updatesettings', {
+      method: 'POST',
+      body: JSON.stringify(user),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+    .then((res) => res.json())
+    .then((res) => {
+      this.props.changeUser(res);
+
+    })
+    .catch((error)=> {
+      console.log(error);
+    })
+  }
+  
   render() {
-    const bucketArray = this.props.settings.feedbackAge
+    const bucketArray = this.props.user.settings.feedbackAge
     return (
       <View style={styles.container}>
         <AwesomeButton
@@ -91,11 +109,11 @@ class PartnerAgeSelector extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  settings: state.user.settings 
+  user: state.user,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  changeSettings: (settings) => dispatch(changeSettings(settings))
+  changeUser: (User) => dispatch(changeUser(User))
 });
 
 export default connect(mapStateToProps,mapDispatchToProps) (PartnerAgeSelector);

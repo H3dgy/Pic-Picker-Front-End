@@ -28,7 +28,6 @@ class AddPictureButton extends Component {
     })
     if(!result.cancelled) {
       let base64Img = `data:image/jpg;base64,${result.base64}`;
-
       const apiUrl = `https://api.cloudinary.com/v1_1/diek0ztdy/image/upload`;
       const data = {
         "file": base64Img,

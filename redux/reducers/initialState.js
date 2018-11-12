@@ -39,8 +39,11 @@ export const initialStateUser =
     gender: null, 
     age: null, 
     feedbackGender: {male: false, female: false}, 
-    feedbackAge: []
-  }
+    feedbackAge: [false,false,false,false]
+  },
+  username: null,
+  id: null,
+  password: null
 };
 
 export const initialStateImageStream = imagesListInit;

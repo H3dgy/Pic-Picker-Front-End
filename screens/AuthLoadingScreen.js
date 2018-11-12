@@ -6,7 +6,7 @@ import {
   ActivityIndicator,
   AsyncStorage
 } from 'react-native';
-import { changeSettings } from '../redux/actions/actions';
+import { changeUser } from '../redux/actions/actions';
 import { connect } from 'react-redux';
 import {AppColors} from '../ColorScheme';
 
@@ -18,14 +18,13 @@ class AuthLoadingScreen extends Component {
   }
 
   loadApp = async () => {
-    const userToken = await AsyncStorage.getItem('userToken');
-    let userSettings = await AsyncStorage.getItem('userSettings');
-    console.log(userSettings);
-    if (userSettings) {
-      userSettings = JSON.parse(userSettings);
-      this.props.changeSettings(userSettings)
+    let user = await AsyncStorage.getItem('user');
+    console.log(user);
+    if (user) {
+      user = JSON.parse(user);
+      this.props.changeUser(user)
     }
-    this.props.navigation.navigate(userToken? 'App' : 'Auth');
+    this.props.navigation.navigate(user? 'App' : 'Auth');
   }
   render() {
     return (<View style={styles.container}>
@@ -40,7 +39,7 @@ const mapStateToProps = () => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  changeSettings: (settings) => dispatch(changeSettings(settings))
+  changeUser: (user) => dispatch(changeUser(user))
 });
 
 export default connect(mapStateToProps,mapDispatchToProps) (AuthLoadingScreen);

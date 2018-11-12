@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import Slider from "react-native-slider";
 import { Image } from "react-native";
-import { changeSettings } from '../redux/actions/actions';
+import { changeSettings, changeUser } from '../redux/actions/actions';
 import { connect } from 'react-redux';
 
 class AgeSelector extends Component {
@@ -16,10 +16,29 @@ class AgeSelector extends Component {
 
   _ageSelection = (value) => {
     this.setState({ value: value })
-    const userSettings = this.props.settings;
-    userSettings.age= value;
-    this.props.changeSettings(userSettings);
+    const user = this.props.user;
+    user.settings.age = value;
+    this._updateSettings(user);
   };
+
+  _updateSettings = (user) => {
+    fetch('http://localhost:3000/updatesettings', {
+      method: 'POST',
+      body: JSON.stringify(user),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+    .then((res) => res.json())
+    .then((res) => {
+      this.props.changeUser(res);
+      console.log("response from API from age: ", res);
+    })
+    .catch((error)=> {
+      console.log(error);
+      console.log('in age selector')
+    })
+  }
 
   render() {
     return (
@@ -41,11 +60,13 @@ class AgeSelector extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  settings: state.user.settings 
+  settings: state.user.settings,
+  user: state.user
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  changeSettings: (settings) => dispatch(changeSettings(settings))
+  changeSettings: (settings) => dispatch(changeSettings(settings)),
+  changeUser: (user) => dispatch(changeUser(user))
 });
 
 export default connect(mapStateToProps,mapDispatchToProps) (AgeSelector);
