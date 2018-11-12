@@ -13,17 +13,41 @@ class AppStatsScreen extends Component {
     super(props);
   }
 
+  componentDidMount() {
+    this._getImages();
+  }
+
+  _getImages = async () => {
+
+    fetch('http://localhost:3000/userimages', {
+      method: 'GET',
+      headers: {
+        "userid": 3
+      }
+    })
+    .then((res) => res.json())
+    .then((res) => {
+      console.log("getimages: ", res);
+      this.props.changeImageList(res);
+    })
+    .catch((error)=> {
+      console.log(error);
+      console.log('in app stats screen')
+    })
+  }
+
   _pressHandler = (image) => {
     this.props.changeActive(image);
     this.props.navigation.navigate("StatsDetailScreen");
   }
 
   _renderPictures = () => {
+  
     return this.props.imageList.map((item, i) => {
       console.log("picture uri: ", item.uri)
       return (
-      <TouchableOpacity style = {{width: SCREEN_WIDTH, marginTop: 20, marginLeft: 10, marginRight: 10, marginBottom: 10}} onPress={() => this._pressHandler(item)}>
-        <StatSummaryComponent key={item.id} uri={item.uri} data={item.data}></StatSummaryComponent>
+      <TouchableOpacity key={item.id + item.uri} style = {{width: SCREEN_WIDTH, marginTop: 20, marginLeft: 10, marginRight: 10, marginBottom: 10}} onPress={() => this._pressHandler(item)}>
+        <StatSummaryComponent uri={item.uri} data={item.data}></StatSummaryComponent>
       </TouchableOpacity>
       )
     })

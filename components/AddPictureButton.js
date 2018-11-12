@@ -21,6 +21,9 @@ class AddPictureButton extends Component {
     this.setState({hasCameraPermission: status === 'granted'});
   }
 
+ 
+
+
   _pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: false,
@@ -94,7 +97,8 @@ const styles = StyleSheet.create({
 });
 const mapStateToProps = (state) => ({
   credits: state.user.credits,
-  imageList: state.images.imageList
+  imageList: state.images.imageList,
+  user: state.user
 });
 
 const mapDispatchToProps = (dispatch) => ({

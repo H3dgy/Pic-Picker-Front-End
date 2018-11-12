@@ -33,14 +33,31 @@ class StatDetailPictureComponent extends Component {
     this.props.navigation.navigate("StatsDetailScreen");
   };
 
+  _createData = () => {
+    let summaryGenderFeedback = {
+      male: 50,
+      female: 50
+    };
+    const {male, female} = this.props.feedbackGender;
+    if(male.people) {
+      summaryGenderFeedback.male = male.upVotes / male.people * 100;
+    }
+    if(female.people) {
+      summaryGenderFeedback.female = female.upVotes / female.people * 100;
+    }
+    return summaryGenderFeedback;
+  }
+
   render() {
+    let summaryGenderFeedback = this._createData();
+
     return (
       <View style={mainStyles.container}>
         <StatSummaryComponent uri={this.props.active.uri} data={this.props.active.data}></StatSummaryComponent>
         <Text>Succes per gender:</Text>
         <View style={mainStyles.pieContainer}>
-          <PieComponent feedbackGender={this.props.active.data.feedbackGender.male} name={'male'} highlight={this.props.settings.feedbackGender.male}/>
-          <PieComponent feedbackGender={this.props.active.data.feedbackGender.female} name={'female'} highlight={this.props.settings.feedbackGender.female}/>
+          <PieComponent feedbackGender={summaryGenderFeedback.male} name={'male'} highlight={this.props.settings.feedbackGender.male}/>
+          <PieComponent feedbackGender={summaryGenderFeedback.female} name={'female'} highlight={this.props.settings.feedbackGender.female}/>
         </View>
         <Text>Succes per age</Text>
         <View style={{ height: 140 }}>
@@ -130,7 +147,9 @@ const mainStyles = StyleSheet.create({
 
 const mapStateToProps = (state) => ({
   active: state.images.active,
-  settings: state.user.settings
+  user: state.user,
+  settings: state.user.settings,
+  feedbackGender: state.images.active.data.feedbackGender
 });
 
 const mapDispatchToProps = (dispatch) => ({

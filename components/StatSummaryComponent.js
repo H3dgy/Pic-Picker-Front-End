@@ -21,11 +21,11 @@ class StatSummaryComponent extends Component {
   }
 
   render() {
-    console.log('props summary: ',this.props)
+    const uri = {uri: this.props.uri.toString()};
    return (<View style={mainStyles.topContainer}>
     <Image
       style={{ flex: 1, height: "100%", borderRadius: 10 }}
-      source={this.props.uri}
+      source={uri}
     />
     <View style={mainStyles.scoreContainer}>
       <View style={mainStyles.subScoreContainer}>

@@ -1,8 +1,5 @@
 import React, { Component } from "react";
-import AwesomeButton from "react-native-really-awesome-button";
 import { StyleSheet, View, Text,  ScrollView, Dimensions } from "react-native";
-import PieChartComponent from "../components/charts/PieChartComponent";
-import ColumnChartComponent from "../components/charts/ColumnChartComponent";
 import StatDetailPictureComponent from "../components/StatDetailPictureComponent";
 
 const SCREEN_HEIGHT = Dimensions.get("window").height;
