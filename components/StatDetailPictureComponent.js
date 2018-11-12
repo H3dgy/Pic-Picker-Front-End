@@ -19,10 +19,24 @@ const SCREEN_HEIGHT = Dimensions.get("window").height;
 
 class StatDetailPictureComponent extends Component {
 
-
+  constructor (props) {
+    super(props)
+    this.state = {
+      summaryGenderFeedback : {
+        male: 50,
+        female: 50
+      },
+      ageFeedback : [50,50,50,50]
+    }
+  }
   showDetails = () => {
     this.props.navigation.navigate("StatsDetailScreen");
   };
+
+  componentDidMount () {
+   this._createGenderData();
+   this._createAgeData();
+  }
 
   _createGenderData = () => {
     let summaryGenderFeedback = {
@@ -36,31 +50,30 @@ class StatDetailPictureComponent extends Component {
     if(female.people) {
       summaryGenderFeedback.female = female.upVotes / female.people * 100;
     }
-    return summaryGenderFeedback;
+    this.setState({summaryGenderFeedback: summaryGenderFeedback}) ;
   }
 
   _createAgeData = () => {
     const arr = this.props.feedbackAge;
-    return arr.map(el => {
+    const result = arr.map(el => {
       if(el.people >= 0) return el.upVotes / el.people * 100;
       return 0;
     })
+    this.setState({ageFeedback: result})
   }
 
   render() {
-    let summaryGenderFeedback = this._createGenderData();
-    let ageFeedback = this._createAgeData();
     return (
       <View style={mainStyles.container}>
         <StatSummaryComponent uri={this.props.active.uri} data={this.props.active.data}></StatSummaryComponent>
         <Text>Succes per gender:</Text>
         <View style={mainStyles.pieContainer}>
-          <PieComponent feedbackGender={summaryGenderFeedback.male} name={'male'} highlight={this.props.settings.feedbackGender.male}/>
-          <PieComponent feedbackGender={summaryGenderFeedback.female} name={'female'} highlight={this.props.settings.feedbackGender.female}/>
+          <PieComponent feedbackGender={this.state.summaryGenderFeedback.male} name={'male'} highlight={this.props.settings.feedbackGender.male}/>
+          <PieComponent feedbackGender={this.state.summaryGenderFeedback.female} name={'female'} highlight={this.props.settings.feedbackGender.female}/>
         </View>
         <Text>Succes per age</Text>
         <View style={{ height: 140 }}>
-          <ColumnChartComponent feedbackAge={ageFeedback}/>
+          <ColumnChartComponent feedbackAge={this.state.ageFeedback}/>
           <AxisText />
         </View>
         <AwesomeButton
