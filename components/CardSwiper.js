@@ -81,7 +81,6 @@ class CardSwiper extends React.Component {
     })
     .then(res => res.json())
     .then(res => {
-      console.log(res);
       this.props.changeUser(res);
     })
     .catch((error)=> {

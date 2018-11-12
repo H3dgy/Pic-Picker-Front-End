@@ -11,7 +11,6 @@ class AgeSelector extends Component {
     this.state = {
       value: this.props.settings.age
     };
-    console.log(this.value);
   }
 
   _ageSelection = (value) => {
@@ -32,7 +31,6 @@ class AgeSelector extends Component {
     .then((res) => res.json())
     .then((res) => {
       this.props.changeUser(res);
-      console.log("response from API from age: ", res);
     })
     .catch((error)=> {
       console.log(error);

@@ -11,7 +11,6 @@ const SCREEN_WIDTH = Dimensions.get("window").width;
 export default class AxisText extends Component {
   _getCategories = () => {
     return categories.map((item, i) => {
-      console.log(item);
       return (
         <View key={item} style={axisStyles.textContainer}>
           <Text>{item}</Text>

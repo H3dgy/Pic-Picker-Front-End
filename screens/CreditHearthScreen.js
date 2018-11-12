@@ -22,16 +22,11 @@ class CreditHearthScreen extends Component {
     })
     .then(res => res.json())
     .then(res => {
-      console.log(res);
       this.props.changeUser(res);
     })
     .catch((error)=> {
       console.log(error);
     })
-  }
-
-  componentDidMount () {
-    console.log("Credits at time of mount: ", this.props.user);
   }
 
   render() {

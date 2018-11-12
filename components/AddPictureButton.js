@@ -23,7 +23,6 @@ class AddPictureButton extends Component {
 
   _postImage = async (uri) => {
     const body = {...this.props.user,uri: uri};
-    console.log('Hey this is the body: ', body)
     fetch('http://localhost:3000/uploadimage', {
       method: 'Post',
       body: JSON.stringify(body),
@@ -33,7 +32,6 @@ class AddPictureButton extends Component {
     })
     .then((res) => res.json())
     .then((res) => {
-      console.log("pictureupload: ", res);
       this.props.changeImageList(res);
     })
     .catch((error)=> {

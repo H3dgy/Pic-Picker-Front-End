@@ -19,7 +19,6 @@ class AuthLoadingScreen extends Component {
 
   loadApp = async () => {
     let user = await AsyncStorage.getItem('user');
-    console.log(user);
     if (user) {
       user = JSON.parse(user);
       this.props.changeUser(user)

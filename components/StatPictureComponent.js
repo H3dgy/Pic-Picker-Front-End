@@ -14,20 +14,12 @@ const standardColors = {
 
 
 class StatPictureComponent extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      score: 10,
-      people: 20
-    };
-  }
 
   showDetails = () => {
     this.props.navigation.navigate("StatsDetailScreen")
   }
 
   render() {
-    console.log("picture uri: ", this.props.image.uri)
     return (
           <TouchableOpacity onPress={this.showDetails}>
           <StatSummaryComponent></StatSummaryComponent>

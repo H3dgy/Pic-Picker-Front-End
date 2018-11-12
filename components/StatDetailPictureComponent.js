@@ -18,16 +18,7 @@ const SCREEN_HEIGHT = Dimensions.get("window").height;
 
 
 class StatDetailPictureComponent extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      score: 7,
-      people: 10,
-      feedbackGender: {male: 10, female: 90}, 
-      feedbackAge: [80,23,56,76]
-    };
-    console.log('check settings: ', this.props.settings)
-  }
+
 
   showDetails = () => {
     this.props.navigation.navigate("StatsDetailScreen");
