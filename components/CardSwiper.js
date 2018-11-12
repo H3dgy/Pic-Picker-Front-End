@@ -1,7 +1,7 @@
 import React from "react";
 import {Dimensions, Image, View, PanResponder, Animated} from "react-native";
 import { connect } from 'react-redux';
-import { changeCredits } from '../redux/actions/actions';
+import { changeCredits, changeStream } from '../redux/actions/actions';
 
 const SCREEN_HEIGHT = Dimensions.get("window").height;
 const SCREEN_WIDTH = Dimensions.get("window").width;
@@ -209,11 +209,13 @@ class CardSwiper extends React.Component {
 
 const mapStateToProps = (state) => ({
   credits: state.user.credits,
-  imageStream: state.imageStream
+  imageStream: state.imageStream,
+  user: state.user
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  changeCredits: (credits) => dispatch(changeCredits(credits))
+  changeCredits: (credits) => dispatch(changeCredits(credits)),
+  changeStream: (stream) => dispatch(changeStream(stream))
 });
 
 export default connect(mapStateToProps,mapDispatchToProps) (CardSwiper);

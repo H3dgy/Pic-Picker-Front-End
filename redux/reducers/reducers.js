@@ -16,6 +16,8 @@ const user = (initialState = initialStateUser, action) => {
 
 const imageStream = (initialState = initialStateImageStream, action) => {
   switch (action.type) {
+    case 'CHANGE_STREAM':
+      return {...action.stream}
     default:
       return initialState
   }

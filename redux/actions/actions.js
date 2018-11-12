@@ -27,5 +27,10 @@ export const changeUser = (user) => ({
   user
 })
 
+export const changeStream = (stream) => ({
+  type: "CHANGE_STREAM",
+  stream
+})
+
 // ImageStream
 
