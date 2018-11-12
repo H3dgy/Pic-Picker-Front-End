@@ -21,7 +21,26 @@ class AddPictureButton extends Component {
     this.setState({hasCameraPermission: status === 'granted'});
   }
 
- 
+  _postImage = async (uri) => {
+    const body = {...this.props.user,uri: uri};
+    console.log('Hey this is the body: ', body)
+    fetch('http://localhost:3000/uploadimage', {
+      method: 'Post',
+      body: JSON.stringify(body),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+    .then((res) => res.json())
+    .then((res) => {
+      console.log("pictureupload: ", res);
+      this.props.changeImageList(res);
+    })
+    .catch((error)=> {
+      console.log(error);
+      console.log('in app picture button screen')
+    })
+  }
 
 
   _pickImage = async () => {
@@ -45,22 +64,10 @@ class AddPictureButton extends Component {
         method: 'POST',
       }).then(async r => {
           let data = await r.json()
-          this._addImagetoImages(data.secure_url)
-          return data.secure_url
+          this._postImage(data.secure_url)
       }).catch(err=>console.log(err))
     }
   };
-
-  _addImagetoImages = (url) => {
-    const imageList = [...this.props.imageList];
-    const image = { 
-      id: imageList.length + 1, 
-      uri: {uri:  url}, 
-      people: 10, 
-      score: 8 };
-    imageList.push(image);
-    this.props.changeImageList(imageList)
-  }
 
   render() {
     const { hasCameraPermission } = this.state;
@@ -103,7 +110,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   changeCredits: (credits) => dispatch(changeCredits(credits)),
-  changeImageList: (imageList) => dispatch(changeImageList(imageList))
+  changeImageList: (imageList) => dispatch(changeImageList(imageList)),
 });
 
 export default connect(mapStateToProps,mapDispatchToProps) (AddPictureButton);

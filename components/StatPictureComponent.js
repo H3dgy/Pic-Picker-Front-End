@@ -29,7 +29,7 @@ class StatPictureComponent extends Component {
   render() {
     console.log("picture uri: ", this.props.image.uri)
     return (
-          <TouchableOpacity  onPress={this.showDetails}>
+          <TouchableOpacity onPress={this.showDetails}>
           <StatSummaryComponent></StatSummaryComponent>
           </TouchableOpacity>
     );

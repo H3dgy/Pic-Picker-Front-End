@@ -9,9 +9,7 @@ class PieChartComponent extends React.Component {
     super(props)
   }
 
-  render() {
-    console.log('props pie: ', this.props)
-    
+  render() {    
     const data = [
       {
         key: 1,

@@ -33,7 +33,7 @@ class StatDetailPictureComponent extends Component {
     this.props.navigation.navigate("StatsDetailScreen");
   };
 
-  _createData = () => {
+  _createGenderData = () => {
     let summaryGenderFeedback = {
       male: 50,
       female: 50
@@ -48,9 +48,17 @@ class StatDetailPictureComponent extends Component {
     return summaryGenderFeedback;
   }
 
-  render() {
-    let summaryGenderFeedback = this._createData();
+  _createAgeData = () => {
+    const arr = this.props.feedbackAge;
+    return arr.map(el => {
+      if(el.people >= 0) return el.upVotes / el.people * 100;
+      return 0;
+    })
+  }
 
+  render() {
+    let summaryGenderFeedback = this._createGenderData();
+    let ageFeedback = this._createAgeData();
     return (
       <View style={mainStyles.container}>
         <StatSummaryComponent uri={this.props.active.uri} data={this.props.active.data}></StatSummaryComponent>
@@ -61,7 +69,7 @@ class StatDetailPictureComponent extends Component {
         </View>
         <Text>Succes per age</Text>
         <View style={{ height: 140 }}>
-          <ColumnChartComponent feedbackAge={this.props.active.data.feedbackAge}/>
+          <ColumnChartComponent feedbackAge={ageFeedback}/>
           <AxisText />
         </View>
         <AwesomeButton
@@ -149,7 +157,8 @@ const mapStateToProps = (state) => ({
   active: state.images.active,
   user: state.user,
   settings: state.user.settings,
-  feedbackGender: state.images.active.data.feedbackGender
+  feedbackGender: state.images.active.data.feedbackGender,
+  feedbackAge: state.images.active.data.feedbackAge
 });
 
 const mapDispatchToProps = (dispatch) => ({

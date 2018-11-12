@@ -22,7 +22,7 @@ class AppStatsScreen extends Component {
     fetch('http://localhost:3000/userimages', {
       method: 'GET',
       headers: {
-        "userid": 3
+        "userid": 2
       }
     })
     .then((res) => res.json())

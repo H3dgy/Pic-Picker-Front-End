@@ -5,7 +5,6 @@ import { Text } from 'react-native-svg'
 
 class ColumnChartComponent extends React.Component {
     render() {
-        console.log('props: ', this.props);
         const data = this.props.feedbackAge.map(x => Math.round(x/10))
         const CUT_OFF = Math.max(data);
         const Labels = ({ x, y, bandwidth, data }) => (
