@@ -5,6 +5,7 @@ import {
   View,
   TextInput,
   Text,
+  AsyncStorage
   } from "react-native";
 import {AppColors} from "../ColorScheme";
 import { connect } from 'react-redux';

@@ -22,12 +22,11 @@ class AppStatsScreen extends Component {
     fetch('http://localhost:3000/userimages', {
       method: 'GET',
       headers: {
-        "userid": 2
+        "userid": this.props.user.id
       }
     })
     .then((res) => res.json())
     .then((res) => {
-      console.log("getimages: ", res);
       this.props.changeImageList(res);
     })
     .catch((error)=> {
@@ -44,7 +43,6 @@ class AppStatsScreen extends Component {
   _renderPictures = () => {
   
     return this.props.imageList.map((item, i) => {
-      console.log("picture uri: ", item.uri)
       return (
       <TouchableOpacity key={item.id + item.uri} style = {{width: SCREEN_WIDTH, marginTop: 20, marginLeft: 10, marginRight: 10, marginBottom: 10}} onPress={() => this._pressHandler(item)}>
         <StatSummaryComponent uri={item.uri} data={item.data}></StatSummaryComponent>
@@ -69,7 +67,8 @@ class AppStatsScreen extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  imageList: state.images.imageList
+  imageList: state.images.imageList,
+  user: state.user
 });
 
 const mapDispatchToProps = (dispatch) => ({

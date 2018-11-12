@@ -12,6 +12,7 @@ const heartColors = {
 class CreditHearthComponent extends Component {
   constructor(props) {
     super(props);
+
   }
 
   handlePress = () => {
@@ -19,14 +20,13 @@ class CreditHearthComponent extends Component {
   }
 
   render() {
-    let activated = this.props.credits >= 10;
-    console.log('activated: ', activated, "  credits: ", this.props.credits)
+    let activated = this.props.user.credits >= 1;
     return (
       <View style={styles.container}>
       <TouchableOpacity  onPress={this.handlePress}>
       <Ionicons style={styles.icon} raised = {true} name="ios-heart" size={32}  color={activated ? heartColors.activated : heartColors.deactivated } />
       {activated && <View style={styles.circle}>
-      <Text style={styles.text}>{Math.floor(this.props.credits / 10)}</Text>
+      <Text style={styles.text}>{this.props.user.credits}</Text>
       </View>}
       </TouchableOpacity> 
       </View>  
@@ -35,11 +35,11 @@ class CreditHearthComponent extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  credits: state.user.credits
+  user: state.user
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  changeCredits: (credits) => dispatch(changeCredits(credits))
+
 });
 
 export default connect(mapStateToProps,mapDispatchToProps) (CreditHearthComponent);

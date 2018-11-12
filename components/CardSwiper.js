@@ -1,7 +1,7 @@
 import React from "react";
 import {Dimensions, Image, View, PanResponder, Animated} from "react-native";
 import { connect } from 'react-redux';
-import { changeCredits, changeStream } from '../redux/actions/actions';
+import { changeCredits, changeStream, changeUser } from '../redux/actions/actions';
 
 const SCREEN_HEIGHT = Dimensions.get("window").height;
 const SCREEN_WIDTH = Dimensions.get("window").width;
@@ -11,7 +11,8 @@ class CardSwiper extends React.Component {
     super(props);
 
     this.state = {
-      currentIndex: 0
+      currentIndex: 0,
+      currentImage: null
     };
 
     this.position = new Animated.ValueXY();
@@ -55,10 +56,39 @@ class CardSwiper extends React.Component {
     });
   }
 
-  _claimCredits = () => {
-    this.props.changeCredits(this.props.credits + 5);
+  _createVote = (index,isUpVote) => {
+    const image = this.props.imageStream[index];
+    this.props.changeCredits(this.props.credits + 1);
+    const body = {...this.props.user, imageId: image.id, isUpVote: isUpVote};
+    fetch('http://localhost:3000/addview', {
+      method: 'POST',
+      headers: {
+        'Content-Type': "application/json",
+      },
+      body: JSON.stringify(body)
+    })
+    .catch((error)=> {
+      console.log(error);
+    })
+    fetch('http://localhost:3000/incrementCredits', {
+      method: 'POST',
+      headers: {
+        'Content-Type': "application/json",
+      },
+      body: JSON.stringify({
+        id: this.props.user.id
+      })
+    })
+    .then(res => res.json())
+    .then(res => {
+      console.log(res);
+      this.props.changeUser(res);
+    })
+    .catch((error)=> {
+      console.log(error);
+    })
   }
-
+  
   componentWillMount() {
     this.PanResponder = PanResponder.create({
       onStartShouldSetPanResponder: (e, gestureState) => true,
@@ -70,9 +100,10 @@ class CardSwiper extends React.Component {
           Animated.spring(this.position, {
             toValue: {x: SCREEN_WIDTH + 100, y:gestureState.dy} 
           }).start(()=>{
-            this.setState({currentIndex: this.state.currentIndex+1}), () => {
+            const index = this.state.currentIndex;
+            this.setState({currentIndex: index+1}), () => {
               this.position.setValue({x:0, y:0});
-              this._claimCredits();
+              this._createVote(index, true);
             }
           })
         }
@@ -80,9 +111,10 @@ class CardSwiper extends React.Component {
           Animated.spring(this.position, {
             toValue: {x: -SCREEN_WIDTH -100, y: gestureState.dy}
           }).start(() => {
-            this.setState({currentIndex: this.state.currentIndex+1}, () => {
+            const index = this.state.currentIndex;
+            this.setState({currentIndex: index+1}, () => {
               this.position.setValue({x:0,y:0});
-              this._claimCredits();
+              this._createVote(index, false);
             })
           })
         }
@@ -90,9 +122,27 @@ class CardSwiper extends React.Component {
     });
   }
 
+  componentDidMount = () => {
+    fetch('http://localhost:3000/imagestream', {
+      method: 'GET',
+      headers: {
+        'userId': this.props.user.id,
+        'lastImageId': 0
+      }
+    })
+    .then((res) => res.json())
+    .then((res) => {
+      this.props.changeStream(res);
+    })
+    .catch((error)=> {
+      console.log(error);
+    } )
+  }
+
   renderImages = () => {
     return this.props.imageStream
       .map((item, i) => {
+        const uri = {uri: item.uri.toString()};
         if (i < this.state.currentIndex) {
           return null;
         } else if (i === this.state.currentIndex) {
@@ -160,7 +210,7 @@ class CardSwiper extends React.Component {
                   resizeMode: "cover",
                   borderRadius: 20
                 }}
-                source={item.uri}
+                source={uri}
               />
             </Animated.View>
           );
@@ -193,7 +243,7 @@ class CardSwiper extends React.Component {
                   resizeMode: "cover",
                   borderRadius: 20
                 }}
-                source={item.uri}
+                source={uri}
               />
             </Animated.View>
           );
@@ -215,7 +265,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   changeCredits: (credits) => dispatch(changeCredits(credits)),
-  changeStream: (stream) => dispatch(changeStream(stream))
+  changeStream: (stream) => dispatch(changeStream(stream)),
+  changeUser: (user) => dispatch(changeUser(user))
 });
 
 export default connect(mapStateToProps,mapDispatchToProps) (CardSwiper);
