@@ -31,10 +31,11 @@ class WelcomeScreen extends Component {
     .then((res) => {
       this.props.changeUser(res);
       this.props.navigation.navigate("Home");
+      console.log('user: ', this.props.user);
       this._saveToMemory();
     })
     .catch((error)=> {
-      console.log(error);
+      console.log(error, 'user retrieval error');
       this._initiateNewUser(this.state.username);
       this.props.navigation.navigate("SignUp");
     } )

@@ -21,37 +21,10 @@ class StatDetailPictureComponent extends Component {
 
   constructor (props) {
     super(props)
-    this.state = {
-      summaryGenderFeedback : {
-        male: 50,
-        female: 50
-      },
-      ageFeedback : [50,50,50,50]
-    }
   }
   showDetails = () => {
     this.props.navigation.navigate("StatsDetailScreen");
   };
-
-  componentDidMount () {
-   this._createGenderData();
-   this._createAgeData();
-  }
-
-  _createGenderData = () => {
-    let summaryGenderFeedback = {
-      male: 50,
-      female: 50
-    };
-    const {male, female} = this.props.feedbackGender;
-    if(male.people) {
-      summaryGenderFeedback.male = male.upVotes / male.people * 100;
-    }
-    if(female.people) {
-      summaryGenderFeedback.female = female.upVotes / female.people * 100;
-    }
-    this.setState({summaryGenderFeedback: summaryGenderFeedback}) ;
-  }
 
   _createAgeData = () => {
     const arr = this.props.feedbackAge;
@@ -68,12 +41,12 @@ class StatDetailPictureComponent extends Component {
         <StatSummaryComponent uri={this.props.active.uri} data={this.props.active.data}></StatSummaryComponent>
         <Text>Succes per gender:</Text>
         <View style={mainStyles.pieContainer}>
-          <PieComponent feedbackGender={this.state.summaryGenderFeedback.male} name={'male'} highlight={this.props.settings.feedbackGender.male}/>
-          <PieComponent feedbackGender={this.state.summaryGenderFeedback.female} name={'female'} highlight={this.props.settings.feedbackGender.female}/>
+          <PieComponent feedbackGender={this.props.active.data.feedbackGender.male.summary * 100} name={'male'} highlight={this.props.settings.feedbackGender.male}/>
+          <PieComponent feedbackGender={this.props.active.data.feedbackGender.female.summary * 100} name={'female'} highlight={this.props.settings.feedbackGender.female}/>
         </View>
         <Text>Succes per age</Text>
         <View style={{ height: 140 }}>
-          <ColumnChartComponent feedbackAge={this.state.ageFeedback}/>
+          <ColumnChartComponent feedbackAge={this.props.active.data.feedbackAge}/>
           <AxisText />
         </View>
         <AwesomeButton

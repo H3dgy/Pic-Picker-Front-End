@@ -21,7 +21,7 @@ class StatSummaryComponent extends Component {
   }
 
   render() {
-    const uri = {uri: this.props.uri.toString()};
+  const uri = {uri: this.props.uri.toString()};
    return (<View style={mainStyles.topContainer}>
     <Image
       style={{ flex: 1, height: "100%", borderRadius: 10 }}

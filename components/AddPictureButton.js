@@ -4,7 +4,7 @@ import { ImagePicker, Permissions } from 'expo';
 import AwesomeButton from "react-native-really-awesome-button";
 import Icon from "react-native-vector-icons/Ionicons";
 import { connect } from 'react-redux';
-import { changeCredits } from '../redux/actions/actions';
+import { changeUser } from '../redux/actions/actions';
 import { changeImageList } from '../redux/actions/actions';
 import { AppColors } from "../ColorScheme";
 
@@ -40,6 +40,24 @@ class AddPictureButton extends Component {
     })
   }
 
+  _changeCredits = () => {
+    fetch('http://localhost:3000/decrementCredits', {
+      method: 'POST',
+      headers: {
+        'Content-Type': "application/json",
+      },
+      body: JSON.stringify({
+        id: this.props.user.id
+      })
+    })
+    .then(res => res.json())
+    .then(res => {
+      this.props.changeUser(res);
+    })
+    .catch((error)=> {
+      console.log(error);
+    })
+  }
 
   _pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -63,6 +81,7 @@ class AddPictureButton extends Component {
       }).then(async r => {
           let data = await r.json()
           this._postImage(data.secure_url)
+          this._changeCredits();
       }).catch(err=>console.log(err))
     }
   };
@@ -107,7 +126,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  changeCredits: (credits) => dispatch(changeCredits(credits)),
+  changeUser: (user) => dispatch(changeUser(user)),
   changeImageList: (imageList) => dispatch(changeImageList(imageList)),
 });
 

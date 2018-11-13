@@ -91,12 +91,12 @@ const styles = StyleSheet.create({
   text: {
     color: "#fff",
     fontSize: 20,
-    fontWeight: 'bold',
+    textAlign: 'center'
   },
   feedbackText: {
     color: 'black',
-    fontWeight: 'bold',
-    fontSize: 20
+    fontSize: 20,
+    textAlign: 'center'
   },
   image: {
     width: 180,

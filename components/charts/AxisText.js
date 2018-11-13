@@ -33,6 +33,6 @@ const axisStyles = StyleSheet.create({
   textContainer: {
     width: (SCREEN_WIDTH - 20) / 5,
     height: 15,
-    alignItems: "center"
+    alignItems: "center",
   }
 });

@@ -12,9 +12,13 @@ class CardSwiper extends React.Component {
 
     this.state = {
       currentIndex: 0,
-      currentImage: null
     };
-
+    this.imageStream = [
+      {id: 1, uri: 'https://res.cloudinary.com/diek0ztdy/image/upload/v1542100372/dickPicker/banana5.jpg'},
+      {id: 2, uri: 'https://res.cloudinary.com/diek0ztdy/image/upload/v1542100372/dickPicker/banana10.jpg'},
+      {id: 3, uri: 'https://res.cloudinary.com/diek0ztdy/image/upload/v1542100372/dickPicker/banana1.jpg'},
+      {id: 4, uri: 'https://res.cloudinary.com/diek0ztdy/image/upload/v1542100372/dickPicker/banana4.jpg'}
+    ]
     this.position = new Animated.ValueXY();
     this.rotate = this.position.x.interpolate({
       inputRange: [-SCREEN_WIDTH / 2, 0, SCREEN_WIDTH / 2],
@@ -100,10 +104,10 @@ class CardSwiper extends React.Component {
             toValue: {x: SCREEN_WIDTH + 100, y:gestureState.dy} 
           }).start(()=>{
             const index = this.state.currentIndex;
-            this.setState({currentIndex: index+1}), () => {
+            this.setState({currentIndex: this.state.currentIndex + 1}, () => {
               this.position.setValue({x:0, y:0});
               this._createVote(index, true);
-            }
+            });
           })
         }
         else if (gestureState.dx < -120) {
@@ -111,7 +115,7 @@ class CardSwiper extends React.Component {
             toValue: {x: -SCREEN_WIDTH -100, y: gestureState.dy}
           }).start(() => {
             const index = this.state.currentIndex;
-            this.setState({currentIndex: index+1}, () => {
+            this.setState({currentIndex: this.state.currentIndex + 1}, () => {
               this.position.setValue({x:0,y:0});
               this._createVote(index, false);
             })
@@ -146,6 +150,7 @@ class CardSwiper extends React.Component {
           return null;
         } else if (i === this.state.currentIndex) {
           return (
+            
             <Animated.View
               {...this.PanResponder.panHandlers}
               key={item.id}
@@ -247,8 +252,7 @@ class CardSwiper extends React.Component {
             </Animated.View>
           );
         }
-      })
-      .reverse();
+      }).reverse();
   };
 
   render() {

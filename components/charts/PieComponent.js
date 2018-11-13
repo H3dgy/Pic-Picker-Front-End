@@ -14,7 +14,7 @@ export default class PieComponent extends Component {
               pieComponentstyles.positioning
             ]}
           >
-            <Text>{this.props.feedbackGender}%</Text>
+            <Text>{Math.round(this.props.feedbackGender)}%</Text>
           </View>
           <View>
             <PieChartComponent liked={this.props.feedbackGender} highlight={this.props.highlight}/>

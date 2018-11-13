@@ -13,8 +13,7 @@ class LogOutScreen extends Component {
   }
 
   logOut = async () => {
-    await AsyncStorage.removeItem("userToken");
-    await AsyncStorage.removeItem("userSettings");
+    await AsyncStorage.removeItem("user");
     this._resetRedux();
     this.props.navigation.navigate("Auth");
   };

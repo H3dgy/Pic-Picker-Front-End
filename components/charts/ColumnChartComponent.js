@@ -5,11 +5,14 @@ import { Text } from 'react-native-svg'
 
 class ColumnChartComponent extends React.Component {
     render() {
-        const data = this.props.feedbackAge.map(x => Math.round(x/10))
+        const data = this.props.feedbackAge.map(x => {
+            return  Math.round(x.summary*100)
+        }
+        )
         const CUT_OFF = Math.max(data);
         const Labels = ({ x, y, bandwidth, data }) => (
             data.map((value, index) => (
-                (value>0) && <Text
+                (value>0) && <Text style={{color: "#fff"}}
                     key={ index }
                     x={ x(index) + (bandwidth / 2) }
                     y={ value < CUT_OFF ? y(value) - 10 : y(value) + 15 }
