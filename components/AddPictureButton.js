@@ -1,97 +1,98 @@
 import React, { Component } from "react";
-import {StyleSheet, Image, View} from "react-native";
-import { ImagePicker, Permissions } from 'expo';
+import { StyleSheet, Image, View } from "react-native";
+import { ImagePicker, Permissions } from "expo";
 import AwesomeButton from "react-native-really-awesome-button";
 import Icon from "react-native-vector-icons/Ionicons";
-import { connect } from 'react-redux';
-import { changeUser } from '../redux/actions/actions';
-import { changeImageList } from '../redux/actions/actions';
+import { connect } from "react-redux";
+import { changeUser } from "../redux/actions/actions";
+import { changeImageList } from "../redux/actions/actions";
 import { AppColors } from "../ColorScheme";
 
 class AddPictureButton extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
-      hasCameraPermission: null,
-    }
+      hasCameraPermission: null
+    };
   }
 
   async componentDidMount() {
     const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
-    this.setState({hasCameraPermission: status === 'granted'});
+    this.setState({ hasCameraPermission: status === "granted" });
   }
 
-  _postImage = async (uri) => {
-    const body = {...this.props.user,uri: uri};
-    fetch('http://localhost:3000/uploadimage', {
-      method: 'Post',
+  _postImage = async uri => {
+    const body = { ...this.props.user, uri: uri };
+    fetch("http://localhost:3000/uploadimage", {
+      method: "Post",
       body: JSON.stringify(body),
       headers: {
         "Content-Type": "application/json"
       }
     })
-    .then((res) => res.json())
-    .then((res) => {
-      this.props.changeImageList(res);
-    })
-    .catch((error)=> {
-      console.log(error);
-      console.log('in app picture button screen')
-    })
-  }
+      .then(res => res.json())
+      .then(res => {
+        this.props.changeImageList(res);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
 
   _changeCredits = () => {
-    fetch('http://localhost:3000/decrementCredits', {
-      method: 'POST',
+    fetch("http://localhost:3000/decrementCredits", {
+      method: "POST",
       headers: {
-        'Content-Type': "application/json",
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({
         id: this.props.user.id
       })
     })
-    .then(res => res.json())
-    .then(res => {
-      this.props.changeUser(res);
-    })
-    .catch((error)=> {
-      console.log(error);
-    })
-  }
+      .then(res => res.json())
+      .then(res => {
+        this.props.changeUser(res);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
 
   _pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: false,
       base64: true
-    })
-    if(!result.cancelled) {
+    });
+    if (!result.cancelled) {
       let base64Img = `data:image/jpg;base64,${result.base64}`;
       const apiUrl = `https://api.cloudinary.com/v1_1/diek0ztdy/image/upload`;
       const data = {
-        "file": base64Img,
-        "upload_preset": "ch3auuqz"
-      }
+        file: base64Img,
+        upload_preset: "ch3auuqz"
+      };
 
       fetch(apiUrl, {
         body: JSON.stringify(data),
         headers: {
-          'content-type': 'application/json'
+          "content-type": "application/json"
         },
-        method: 'POST',
-      }).then(async r => {
-          let data = await r.json()
-          this._postImage(data.secure_url)
+        method: "POST"
+      })
+        .then(async r => {
+          let data = await r.json();
+          this._postImage(data.secure_url);
           this._changeCredits();
-      }).catch(err=>console.log(err))
+        })
+        .catch(err => console.log(err));
     }
   };
 
   render() {
     const { hasCameraPermission } = this.state;
     if (hasCameraPermission === null) {
-      return <View/>
+      return <View />;
     } else if (hasCameraPermission === false) {
-      return <Text>No access to camera roll</Text>
+      return <Text>No access to camera roll</Text>;
     } else {
       return (
         <View style={styles.container}>
@@ -119,16 +120,18 @@ const styles = StyleSheet.create({
     alignItems: "center"
   }
 });
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   credits: state.user.credits,
   imageList: state.images.imageList,
   user: state.user
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  changeUser: (user) => dispatch(changeUser(user)),
-  changeImageList: (imageList) => dispatch(changeImageList(imageList)),
+const mapDispatchToProps = dispatch => ({
+  changeUser: user => dispatch(changeUser(user)),
+  changeImageList: imageList => dispatch(changeImageList(imageList))
 });
 
-export default connect(mapStateToProps,mapDispatchToProps) (AddPictureButton);
-
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AddPictureButton);

@@ -1,51 +1,42 @@
 import React, { Component } from "react";
 import AwesomeButton from "react-native-really-awesome-button";
-import { 
-  StyleSheet,
-  View,
-  TextInput,
-  Text,
-  AsyncStorage
-  } from "react-native";
-import {AppColors} from "../ColorScheme";
-import { connect } from 'react-redux';
-import {changeUser} from '../redux/actions/actions';
-
+import { StyleSheet, View, TextInput, Text, AsyncStorage } from "react-native";
+import { AppColors } from "../ColorScheme";
+import { connect } from "react-redux";
+import { changeUser } from "../redux/actions/actions";
 
 class WelcomeScreen extends Component {
   constructor() {
     super();
     this.state = {
       username: ""
-    }
+    };
   }
 
   _checkSignIn = () => {
-    fetch('http://localhost:3000/userdata', {
-      method: 'GET',
+    fetch("http://localhost:3000/userdata", {
+      method: "GET",
       headers: {
-        'username': this.state.username.toLowerCase()
+        username: this.state.username.toLowerCase()
       }
     })
-    .then((res) => res.json())
-    .then((res) => {
-      this.props.changeUser(res);
-      this.props.navigation.navigate("Home");
-      console.log('user: ', this.props.user);
-      this._saveToMemory();
-    })
-    .catch((error)=> {
-      console.log(error, 'user retrieval error');
-      this._initiateNewUser(this.state.username);
-      this.props.navigation.navigate("SignUp");
-    } )
+      .then(res => res.json())
+      .then(res => {
+        this.props.changeUser(res);
+        this.props.navigation.navigate("Home");
+        this._saveToMemory();
+      })
+      .catch(error => {
+        this._initiateNewUser(this.state.username);
+        this.props.navigation.navigate("SignUp");
+      });
   };
 
   _saveToMemory = async () => {
     await AsyncStorage.setItem("user", JSON.stringify(this.props.user));
-  }
+  };
 
-  _initiateNewUser = (username) => {
+  _initiateNewUser = username => {
     const newUser = {
       id: null,
       username: username,
@@ -55,63 +46,67 @@ class WelcomeScreen extends Component {
         age: 18,
         feedbackGender: {
           male: false,
-          female: false,
+          female: false
         },
-        feedbackAge: [
-          false,
-          false,
-          false,
-          false
-        ]
+        feedbackAge: [false, false, false, false]
       }
-    }
+    };
     this._sendToApi(newUser);
-  }
+  };
 
-  _sendToApi = (user) => {
-    fetch('http://localhost:3000/adduser', {
-      method: 'POST',
+  _sendToApi = user => {
+    fetch("http://localhost:3000/adduser", {
+      method: "POST",
       body: JSON.stringify(user),
       headers: {
         "Content-Type": "application/json"
       }
     })
-    .then((res) => res.json())
-    .then((res) => {
-      this.props.changeUser(res);
-    })
-    .catch((error)=> {
-      console.log(error);
-    })
-  }
+      .then(res => res.json())
+      .then(res => {
+        this.props.changeUser(res);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
 
   render() {
-    return <View style={styles.container}>
-      <Text>Username</Text>
-      <TextInput style={styles.input}
-      onChangeText={(input) => this.setState({username: input})}
-      value={this.state.username}
-      />
-        <AwesomeButton style={styles.buttonContainer}
+    return (
+      <View style={styles.container}>
+        <Text>Username</Text>
+        <TextInput
+          style={styles.input}
+          onChangeText={input => this.setState({ username: input })}
+          value={this.state.username}
+        />
+        <AwesomeButton
+          style={styles.buttonContainer}
           onPress={() => this._checkSignIn()}
           backgroundColor={AppColors.purpleButton.color}
           backgroundDarker={AppColors.purpleButton.backgroundColor}
-        >Sign in or up</AwesomeButton>
-      </View>;
+        >
+          Sign in or up
+        </AwesomeButton>
+      </View>
+    );
   }
 }
 
 //this.props.navigation.navigate("SignUp")
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   user: state.user
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  changeUser: (User) => dispatch(changeUser(User)) 
+const mapDispatchToProps = dispatch => ({
+  changeUser: User => dispatch(changeUser(User))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps) (WelcomeScreen);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(WelcomeScreen);
 
 const styles = StyleSheet.create({
   container: {
@@ -123,13 +118,13 @@ const styles = StyleSheet.create({
   buttonContainer: {
     marginTop: 5,
     marginBottom: 5
-  }, 
+  },
   input: {
     margin: 15,
     padding: 10,
     height: 50,
     width: 200,
     borderRadius: 10,
-    borderWidth: 2,
+    borderWidth: 2
   }
 });

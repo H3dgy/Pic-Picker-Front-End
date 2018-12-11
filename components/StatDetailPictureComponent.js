@@ -4,7 +4,7 @@ import AwesomeButton from "react-native-really-awesome-button";
 import PieComponent from "./charts/PieComponent";
 import ColumnChartComponent from "./charts/ColumnChartComponent";
 import AxisText from "./charts/AxisText";
-
+import { changeUser } from '../redux/actions/actions';
 import { connect } from 'react-redux';
 import { AppColors } from "../ColorScheme";
 import StatSummaryComponent from "./StatSummaryComponent";
@@ -35,6 +35,25 @@ class StatDetailPictureComponent extends Component {
     this.setState({ageFeedback: result})
   }
 
+  _changeCredits = () => {
+    fetch('http://localhost:3000/decrementCredits', {
+      method: 'POST',
+      headers: {
+        'Content-Type': "application/json",
+      },
+      body: JSON.stringify({
+        id: this.props.user.id
+      })
+    })
+    .then(res => res.json())
+    .then(res => {
+      this.props.changeUser(res);
+    })
+    .catch((error)=> {
+      console.log(error);
+    })
+  }
+
   render() {
     return (
       <View style={mainStyles.container}>
@@ -50,6 +69,7 @@ class StatDetailPictureComponent extends Component {
           <AxisText />
         </View>
         <AwesomeButton
+          onPress={this._changeCredits}
           backgroundColor={AppColors.purpleButton.color}
           backgroundDarker={AppColors.purpleButton.backgroundColor}
           height={40}
@@ -139,7 +159,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
- 
+  changeUser: (user) => dispatch(changeUser(user)),
 });
 
 export default connect(mapStateToProps,mapDispatchToProps) (StatDetailPictureComponent);

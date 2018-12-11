@@ -35,6 +35,8 @@ class AuthLoadingScreen extends Component {
           console.log(error, "user retrieval error");
           this.props.navigation.navigate("Auth");
         });
+    } else {
+      this.props.navigation.navigate("Auth");
     }
   };
 

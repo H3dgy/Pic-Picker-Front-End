@@ -6,6 +6,7 @@ class AppHomeScreen extends Component {
   constructor() {
     super();
   }
+
   render() {
     return (
       <View style={styles.container}>
@@ -23,6 +24,7 @@ const styles = StyleSheet.create({
     flex: 1,
   }
 });
+
 
 
 
