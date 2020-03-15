@@ -9,16 +9,18 @@
     "eject": "expo eject"
   },
   "dependencies": {
-    "expo": "^31.0.2",
-    "react": "16.5.0",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-31.0.0.tar.gz",
+    "expo": "^36.0.0",
+    "expo-permissions": "~8.0.0",
+    "react": "^16.13.0",
+    "react-native": "^0.61.0",
     "react-native-fontawesome": "^5.7.0",
+    "react-native-gesture-handler": "~1.2.1",
     "react-native-ionicons": "^4.4.6",
     "react-native-really-awesome-button": "^0.8.3",
     "react-native-slider": "^0.11.0",
-    "react-native-svg": "^8.0.8",
+    "react-native-svg": "^9.4.0",
     "react-native-svg-charts": "^5.2.0",
-    "react-native-vector-icons": "^6.0.2",
+    "react-native-vector-icons": "^6.6.0",
     "react-navigation": "^2.18.2",
     "react-redux": "^5.1.0",
     "redux": "^4.0.1"

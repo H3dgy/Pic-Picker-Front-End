@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { StyleSheet, Image, View } from "react-native";
-import { ImagePicker, Permissions } from "expo";
+import { ImagePicker } from "expo";
+import * as Permissions from 'expo-permissions';
 import AwesomeButton from "react-native-really-awesome-button";
 import Icon from "react-native-vector-icons/Ionicons";
 import { connect } from "react-redux";
